@@ -7,11 +7,21 @@ export default {
       fontFamily: {
         sans: ["Poppins", "sans-serif"], // Set Poppins sebagai default font sans
       },
-      colors: {},
+      colors: {
+        "kuning-emas": "#B7B78A",
+        "emas-gradient": "#51513D",
+        "green-muda": "#658864",
+        "green-tua": "#3B513B",
+      },
     },
     backgroundColor: (theme) => ({
       ...theme("colors"),
-      "green-pastel": "#D7F6EA",
+      "kuning-emas": "#B7B78A",
+      "emas-gradient": "#51513D",
+      "green-muda": "#658864",
+      "green-tua": "#3B513B",
+      "grey-home": "#DDDDDD",
+
     }),
   },
   plugins: [],
