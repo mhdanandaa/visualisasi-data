@@ -1,6 +1,5 @@
-import React from 'react'
-import SidebarFrame from '../../components/SidebarFrame'
-
+import React from "react";
+import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
 
 const IncomePage = () => {
   return (
@@ -10,7 +9,7 @@ const IncomePage = () => {
         <h1 className="text-2xl font-bold">I</h1>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default IncomePage
+export default IncomePage;

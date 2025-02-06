@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarFrame from "../../components/SidebarFrame";
+import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
 
 const GeographyPage = () => {
   return (

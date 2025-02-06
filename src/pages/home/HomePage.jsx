@@ -1,6 +1,5 @@
-import React from 'react'
-import SidebarFrame from '../../components/SidebarFrame'
-
+import React from "react";
+import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
 
 const HomePage = () => {
   return (
@@ -10,7 +9,7 @@ const HomePage = () => {
         <h1 className="text-2xl font-bold">Dashboard</h1>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

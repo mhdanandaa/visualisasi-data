@@ -1,5 +1,5 @@
-import React from 'react'
-import SidebarFrame from '../../components/SidebarFrame'
+import React from "react";
+import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
 
 const TimePage = () => {
   return (
@@ -9,7 +9,7 @@ const TimePage = () => {
         <h1 className="text-2xl font-bold">T</h1>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default TimePage
+export default TimePage;
