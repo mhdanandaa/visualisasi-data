@@ -2,10 +2,10 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import SidebarItem from "./SidebarItem";
 
-import homeIcon from "../assets/HomeIcon.svg";
-import paymentIcon from "../assets/PaymentIcon.svg";
-import mapIcon from "../assets/MapIcon.svg";
-import timetIcon from "../assets/TimeIcon.svg";
+import homeIcon from "../../assets/HomeIcon.svg";
+import paymentIcon from "../../assets/PaymentIcon.svg";
+import mapIcon from "../../assets/MapIcon.svg";
+import timetIcon from "../../assets/TimeIcon.svg";
 
 const SidebarFrame = () => {
   return (

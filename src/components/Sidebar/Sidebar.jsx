@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { ChevronFirst, ChevronLast } from "lucide-react";
 
-import logo from "../assets/LogoKeraton.svg";
-import logoutIcon from "../assets/LogoutIcon.svg";
+import logo from "../../assets/LogoKeraton.svg";
+import logoutIcon from "../../assets/LogoutIcon.svg";
 
 export const SidebarContext = createContext();
 
@@ -42,10 +42,7 @@ const Sidebar = ({ children }) => {
               {expanded ? (
                 <ChevronFirst />
               ) : (
-                <img
-                  src={logo}
-                  alt="Logo Keraton"
-                />
+                <img src={logo} alt="Logo Keraton" />
               )}
             </button>
           </div>
