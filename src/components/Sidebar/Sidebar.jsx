@@ -37,12 +37,12 @@ const Sidebar = ({ children }) => {
             </h1>
             <button
               onClick={() => setExpanded((current) => !current)}
-              className="p-2 rounded-lg w-10 h-12  hover:bg-gray-100"
+              className=" rounded-lg w-10 h-12  hover:bg-gray-100"
             >
               {expanded ? (
                 <ChevronFirst />
               ) : (
-                <img src={logo} alt="Logo Keraton" />
+                <img src={logo} alt="Logo Keraton"/>
               )}
             </button>
           </div>
