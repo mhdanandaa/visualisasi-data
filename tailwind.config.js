@@ -21,7 +21,7 @@ export default {
       "green-muda": "#658864",
       "green-tua": "#3B513B",
       "grey-home": "#DDDDDD",
-
+      "green-date": "#9FB298",
     }),
   },
   plugins: [],
