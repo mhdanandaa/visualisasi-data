@@ -1,25 +1,25 @@
 import { useState } from "react";
-import imgBanner from "../../assets/BannerImg.svg";
 import dateIcon from "../../assets/DateIcon.svg";
 
 const Banner = () => {
+  const today = new Date();
+
   const getDate = () => {
-    const today = new Date();
     const monthNames = [
-      "Januari",
-      "Februari",
-      "Maret",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "Mei",
-      "Juni",
-      "Juli",
-      "Agustus",
-      "September",
-      "Oktober",
-      "November",
-      "Desember",
+      "Jun",
+      "Jul",
+      "Agu",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Des",
     ];
-    const month = monthNames[today.getMonth() + 1];
+    const month = monthNames[today.getMonth()];
     const year = today.getFullYear();
     const date = today.getDate();
     const hour = today.getHours();
@@ -27,23 +27,33 @@ const Banner = () => {
     return `${month} ${date}, ${year} ${hour}:${minute}`;
   };
 
+  const getTimeCategory = (hour) => {
+    // console.log("Jam saat ini:", hour)
+    if (hour >= 3 && hour < 11) {
+      return "Pagi";
+    } else if (hour >= 11 && hour < 15) {
+      return "Siang";
+    } else if (hour >= 15 && hour < 18) {
+      return "Sore";
+    } else return "Malam";
+  };
+
+  const timeCategory = getTimeCategory(today.getHours());
+
   const [currentDate, setCurrentDate] = useState(getDate());
 
   return (
-    <div className="flex-col py-4 px-4 bg-gradient-to-l from-kuning-emas/70 to bg-green-muda rounded-2xl">
-      <div className="flex items-center bg-green-date w-1/3 rounded-md px-1 py-1">
-        <img src={dateIcon} className="w-6" />
-        <h1 className="text-white font-light text-sm pl-1">{currentDate}</h1>
-      </div>
-
-      <div className="flex items-end">
-        <div className="flex-col">
-          <h1 className="text-white font-semibold">Hallo, Admin</h1>
-          <h1 className="text-white font-light text-sm">
-            Semoga Harimu Menyenangkan!
+    <div className="flex mr-4 mt-4">
+      <h1 className="text-brown-custom font-bold text-xl">
+        Selamat {timeCategory}, Admin!
+      </h1>
+      <div className="flex ml-auto ">
+        <div className="flex items-center bg-white rounded-md px-4 py-1">
+          <img src={dateIcon} className="w-6" />
+          <h1 className="text-gray-custom font-semibold text-sm pl-1">
+            {currentDate}
           </h1>
         </div>
-        <img src={imgBanner} className="ml-auto w-1/2" />
       </div>
     </div>
   );
