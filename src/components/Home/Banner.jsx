@@ -1,7 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dateIcon from "../../assets/DateIcon.svg";
 
 const Banner = () => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", false);
+    }
+  }, [isDarkMode]);
+
+  const buttonDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   const today = new Date();
 
   const getDate = () => {
@@ -47,12 +65,15 @@ const Banner = () => {
       <h1 className="text-brown-custom font-bold text-xl">
         Selamat {timeCategory}, Admin!
       </h1>
-      <div className="flex ml-auto ">
-        <div className="flex items-center bg-white rounded-md px-4 py-1">
+      <div className="flex ml-auto">
+        <div className="flex items-center bg-white rounded-md px-4 py-1 mx-2">
           <img src={dateIcon} className="w-6" />
           <h1 className="text-gray-custom font-semibold text-sm pl-1">
             {currentDate}
           </h1>
+        </div>
+        <div className="flex items-center bg-white rounded-md px-2 py-1">
+          <button onClick={buttonDarkMode}>{isDarkMode ? "☀️" : "🌙"}</button>
         </div>
       </div>
     </div>
