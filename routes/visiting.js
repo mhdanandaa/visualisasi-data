@@ -8,6 +8,8 @@ router.get("/jumlahterjual", visitingController.getJumlahTerjual);
 router.get("/jumlahterjual-tahun", visitingController.getJumlahTerjualPerTahun);
 router.get("/jumlahterjual-tahun-bulan", visitingController.getJumlahTerjualPerTahunPerBulan);
 router.get("/jumlahterjual-tahun-jenistiket-bulan", visitingController.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan);
+router.get('/jumlahterjual-tahun-checkin', visitingController.getJumlahTerjualByCheckin);
+router.get('/jumlahjamkunjungan-tahun', visitingController.getTotalVisitingHoursPerTicket);
 
 router.get("/pembayaran-jenistiket", visitingController.getTotalDibayarPerJenis);
 router.get("/pembayaran-jenistiket-tahun", visitingController.getTotalDibayarPerJenisPerTahun);

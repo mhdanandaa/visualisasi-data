@@ -155,7 +155,7 @@ exports.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan = async (req, res) =>
                 jenis_tiket: item.jenis_tiket,
                 tahun: item.tahun,
                 bulan: convertMonthToIndonesian(item.bulan), // Convert month to Indonesian name
-                total_kunjungan: item.total_kunjungan
+                jumlah_terjual: item.jumlah_terjual
             };
         });
 
@@ -165,4 +165,23 @@ exports.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan = async (req, res) =>
     }
 };
   
+exports.getJumlahTerjualByCheckin  = async (req, res) => {
+    try {
+        const year = req.query.year; // Get 'year' from query params
+        const data = await visitingModel.getJumlahTerjualByCheckin (year);
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getTotalVisitingHoursPerTicket  = async (req, res) => {
+    try {
+        const year = req.query.year; // Get 'year' from query params
+        const data = await visitingModel.getTotalVisitingHoursPerTicket (year);
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
   

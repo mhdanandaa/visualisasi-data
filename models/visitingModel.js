@@ -257,7 +257,7 @@ exports.getTotalDibayarPerMetodePerTahun = (year) => {
 exports.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan = (year) => {
     return new Promise((resolve, reject) => {
         let query = `
-            SELECT jenis_tiket, YEAR(tanggal) AS tahun, MONTH(tanggal) AS bulan, COUNT(id) AS total_kunjungan
+            SELECT jenis_tiket, YEAR(tanggal) AS tahun, MONTH(tanggal) AS bulan, SUM(jumlah) AS jumlah_terjual
             FROM visitings
             GROUP BY jenis_tiket, tahun, bulan
             ORDER BY tahun ASC, bulan ASC
@@ -266,7 +266,7 @@ exports.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan = (year) => {
         const params = [];
         if (year) {
             query = `
-                SELECT jenis_tiket, YEAR(tanggal) AS tahun, MONTH(tanggal) AS bulan, COUNT(id) AS total_kunjungan
+                SELECT jenis_tiket, YEAR(tanggal) AS tahun, MONTH(tanggal) AS bulan, SUM(jumlah) AS jumlah_terjual
                 FROM visitings
                 WHERE YEAR(tanggal) = ?
                 GROUP BY jenis_tiket, tahun, bulan
@@ -281,4 +281,77 @@ exports.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan = (year) => {
         });
     });
 };
+
+exports.getJumlahTerjualByCheckin = (year) => {
+    return new Promise((resolve, reject) => {
+        let query = `
+        SELECT 
+            YEAR(tanggal) AS tahun,
+            CASE 
+                WHEN TIME(check_in) BETWEEN '06:00:00' AND '11:59:59' THEN 'Pagi'
+                WHEN TIME(check_in) BETWEEN '12:00:00' AND '15:59:59' THEN 'Siang'
+                WHEN TIME(check_in) BETWEEN '16:00:00' AND '18:59:59' THEN 'Sore'
+                WHEN TIME(check_in) BETWEEN '19:00:00' AND '23:59:59' THEN 'Malam'
+            END AS waktu_kunjungan,
+            SUM(jumlah) AS jumlah_terjual
+        FROM visitings
+        waktu_kunjungan
+        ORDER BY tahun ASC, FIELD(waktu_kunjungan, 'Pagi', 'Siang', 'Sore', 'Malam');
+      `;
+      
+      if (year) {
+          query = `
+              SELECT 
+              YEAR(tanggal) AS tahun,
+              CASE 
+                  WHEN TIME(check_in) BETWEEN '06:00:00' AND '11:59:59' THEN 'Pagi'
+                  WHEN TIME(check_in) BETWEEN '12:00:00' AND '15:59:59' THEN 'Siang'
+                  WHEN TIME(check_in) BETWEEN '16:00:00' AND '18:59:59' THEN 'Sore'
+                  WHEN TIME(check_in) BETWEEN '19:00:00' AND '23:59:59' THEN 'Malam'
+              END AS waktu_kunjungan,
+              SUM(jumlah) AS jumlah_terjual
+              FROM visitings
+              WHERE YEAR(tanggal) = ?
+              GROUP BY tahun, waktu_kunjungan
+              ORDER BY tahun ASC, FIELD(waktu_kunjungan, 'Pagi', 'Siang', 'Sore', 'Malam');
+          `;
+      }
+  
+      db.query(query, [year], (err, results) => {
+        if (err) reject(err);
+        resolve(results);
+      });
+    })
+  };
+
+  exports.getTotalVisitingHoursPerTicket = (year) => {
+    return new Promise((resolve, reject) => {
+        let query = `
+                SELECT 
+                    jenis_tiket,
+                    SUM(TIMESTAMPDIFF(HOUR, check_in, check_out)) AS total_jam_kunjungan
+                FROM visitings
+                GROUP BY jenis_tiket
+                ORDER BY total_jam_kunjungan DESC;
+        `;
+      
+      if (year) {
+          query = `
+                SELECT 
+                    jenis_tiket,
+                    YEAR(tanggal) AS tahun,
+                    SUM(TIMESTAMPDIFF(HOUR, check_in, check_out)) AS total_jam_kunjungan
+                FROM visitings
+                WHERE YEAR(tanggal) = ?
+                GROUP BY tahun, jenis_tiket
+                ORDER BY tahun, total_jam_kunjungan DESC;
+          `;
+      }
+  
+      db.query(query, [year], (err, results) => {
+        if (err) reject(err);
+        resolve(results);
+      });
+    })
+  };
   
