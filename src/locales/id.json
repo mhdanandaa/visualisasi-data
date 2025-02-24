@@ -1,0 +1,13 @@
+{
+  "home": {
+    "banner": {
+      "greating": "Selamat",
+      "time": {
+        "morning": "Pagi",
+        "afternoon": "Siang",
+        "evening": "Sore",
+        "night": "Malam"
+      }
+    }
+  }
+}

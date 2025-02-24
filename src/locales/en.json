@@ -1,0 +1,13 @@
+{
+  "home": {
+    "banner": {
+      "greating": "Good",
+      "time": {
+        "morning": "Moring",
+        "afternoon": "Afternoon",
+        "evening": "Evening",
+        "night": "Night"
+      }
+    }
+  }
+}

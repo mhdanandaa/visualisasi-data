@@ -27,8 +27,8 @@ export default {
       "green-date": "#9FB298",
       "gray-custom": "#5F5F5F",
       "brown-custom": "#94551D",
-      "dark-bg": "#141517",
-      "dark-mode": "#21242D"
+      "dark-bg": "#19221A",
+      "dark-mode": "#212C21"
 
 
     }),
