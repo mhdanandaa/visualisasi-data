@@ -12,8 +12,8 @@ const SidebarItem = ({ icon, text, to }) => {
         `relative flex items-center py-3 px-3 my-4 font-medium rounded-lg cursor-pointer transition-colors group
         ${
           isActive
-            ? "bg-green-muda text-white" // Saat link aktif
-            : "bg-kuning-emas text-white hover:bg-green-muda" // Saat link tidak aktif
+            ? "bg-green-muda text-white"
+            : "bg-kuning-emas text-white hover:bg-green-muda"
         }`
       }
     >

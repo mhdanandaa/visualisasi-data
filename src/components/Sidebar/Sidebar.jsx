@@ -19,8 +19,8 @@ const Sidebar = ({ children }) => {
   return (
     <SidebarContext.Provider value={{ expanded }}>
       <aside className="h-screen my-4 mx-4">
-        <nav className="h-full flex flex-col bg-white border-r shadow-sm rounded-2xl">
-          <div className="p-4 pb-10 flex justify-between items-center">
+        <nav className="h-full min-h-full flex flex-col bg-bg-card dark:bg-dark-mode  shadow-sm rounded-2xl">
+          <div className="p-4 flex justify-between items-center">
             <img
               src={logo}
               alt="Logo Keraton"
@@ -42,11 +42,11 @@ const Sidebar = ({ children }) => {
               {expanded ? (
                 <ChevronFirst />
               ) : (
-                <img src={logo} alt="Logo Keraton"/>
+                <img src={logo} alt="Logo Keraton" />
               )}
             </button>
           </div>
-          <ul className="flex-1 px-3 pt-24">{children}</ul>
+          <ul className="flex-1 px-3 pt-32">{children}</ul>
           <div className="border-t flex p-3 justify-center items-center">
             <img
               src={logoutIcon}
