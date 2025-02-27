@@ -23,12 +23,13 @@ export default {
       "emas-gradient": "#51513D",
       "green-muda": "#658864",
       "green-tua": "#3B513B",
-      "grey-home": "#DDDDDD",
+      "bg-custom": "#DDDDDD",
+      "bg-card": "#EEEEEE",
       "green-date": "#9FB298",
       "gray-custom": "#5F5F5F",
       "brown-custom": "#94551D",
       "dark-bg": "#19221A",
-      "dark-mode": "#212C21"
+      "dark-mode": "#212C21",
 
 
     }),
