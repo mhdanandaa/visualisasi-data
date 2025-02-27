@@ -1,8 +1,12 @@
 import React from "react";
-import keraton from "../assets/IconLogin.jpeg";
-import logo from "../assets/LogoKeraton.svg";
+import keraton from "../../assets/IconLogin.jpeg";
+import logo from "../../assets/LogoKeraton.svg";
 
 const LoginPage = () => {
+  const handleSubmit = () => {
+    alert("Anda Berhasil Login!");
+  };
+
   return (
     <div className="h-screen flex flex-row">
       {/* Bg Kiri */}
@@ -52,6 +56,7 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="py-2 px-2 bg-green-muda text-white font-semibold rounded-2xl w-full"
+                  onClick={handleSubmit}
                 >
                   Login
                 </button>
