@@ -1,5 +1,6 @@
 {
   "home": {
+    "notFound": "Tidak ada data pada tahun ini",
     "banner": {
       "greating": "Selamat",
       "time": {
@@ -10,8 +11,10 @@
       }
     },
     "totalPendapatan": {
-      "title": "Total Pendapatan",
-      "notFound": "Tidak ada data pada tahun ini"
+      "title": "Total Pendapatan"
+    },
+    "totalPengunjung": {
+      "title": "Total Pengunjung"
     }
   }
 }
