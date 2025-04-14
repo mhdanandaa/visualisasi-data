@@ -8,6 +8,10 @@
         "evening": "Sore",
         "night": "Malam"
       }
+    },
+    "totalPendapatan": {
+      "title": "Total Pendapatan",
+      "notFound": "Tidak ada data pada tahun ini"
     }
   }
 }

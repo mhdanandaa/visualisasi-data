@@ -8,6 +8,10 @@
         "evening": "Evening",
         "night": "Night"
       }
+    },
+    "totalPendapatan": {
+      "title": "Total Revenue",
+      "notFound": "There is no data for this year"
     }
   }
 }
