@@ -13,7 +13,7 @@ const PendapatanPie = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Dashboard/pendapatan-pie.json");
+      const response = await fetch("/API/Dashboard/pendapatan-tiket.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -93,7 +93,7 @@ const PendapatanPie = ({ selectedYear }) => {
         </div>
       ) : (
         <p className="text-center text-sm text-gray-500">
-          {t("home.totalPendapatan.notFound")}
+          {t("home.notFound")}
         </p>
       )}
     </div>
