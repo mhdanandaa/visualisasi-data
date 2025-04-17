@@ -13,8 +13,32 @@
     "totalPendapatan": {
       "title": "Total Revenue"
     },
+    "kapasitas": {
+      "title": "Capacity & Tickets Sold"
+    },
     "totalPengunjung": {
       "title": "Total Visitors"
+    },
+    "totalPenjualan": {
+      "title": "Total Ticket Sales"
+    },
+    "waktuKunjungan": {
+      "title": "Total Category Visit Time "
+    }
+  },
+  "income": {
+    "notFound": "There is no data from the selected time range",
+    "pie": {
+      "title": "Total Revenue by Ticket Type"
+    },
+    "doughnut": {
+      "title": "Total Revenue by Working Day and Holiday"
+    },
+    "time": {
+      "title": "Total Revenue Based on Visiting Hours"
+    },
+    "payment": {
+      "title": "Total Revenue from Payments by Ticket Type"
     }
   }
 }
