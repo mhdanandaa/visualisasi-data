@@ -67,9 +67,10 @@ const Navbar = () => {
     <div>
       <nav className="bg-bg-card w-full fixed top-0 left-0 z-50 shadow-md">
         <div className="flex justify-center items-center w-full px-4 py-3">
-          <h1 className="font-bold text-kuning-emas">
+          <a href="/"><h1 className="font-bold text-kuning-emas">
             Tren<span className="text-green-muda"> Kasepuhan</span>
           </h1>
+          </a>
           <div className="flex ml-auto">
             <div className="flex items-center bg-bg-custom rounded-xl px-4 py-1 mx-2">
               <img src={dateIcon} className="w-6" />
