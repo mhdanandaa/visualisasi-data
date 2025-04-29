@@ -1,18 +1,16 @@
+import { isWithinInterval, parse } from "date-fns";
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { useTranslation } from "react-i18next";
-import { parse, isWithinInterval } from "date-fns";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieTiket = ({ dateRange }) => {
-  const { t } = useTranslation();
+const AllPembayaran = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/pendapatan-tiket.json");
+      const response = await fetch("/API/Income/jenis-pembayaran.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -36,23 +34,23 @@ const PieTiket = ({ dateRange }) => {
   }, [dateRange]);
 
   const pieData = () => {
-    const ticketTotals = {};
+    const paymentTotals = {};
 
     datas.forEach((item) => {
-      const jenis = item.jenis_tiket;
-      const total = Number(item.total_pendapatan.replace(/\./g, ""),0);
+      const jenisPembayaran = item.jenis_pembayaran;
+      const total = Number(item.total_pendapatan.replace(/\./g, ""), 0);
 
-      if (!ticketTotals[jenis]) {
-        ticketTotals[jenis] = 0;
+      if (!paymentTotals[jenisPembayaran]) {
+        paymentTotals[jenisPembayaran] = 0;
       }
-      ticketTotals[jenis] += total;
+      paymentTotals[jenisPembayaran] += total;
     });
 
     return {
-      labels: Object.keys(ticketTotals),
+      labels: Object.keys(paymentTotals),
       datasets: [
         {
-          data: Object.values(ticketTotals),
+          data: Object.values(paymentTotals),
           backgroundColor: [
             "#BC6C25",
             "#658864",
@@ -77,14 +75,11 @@ const PieTiket = ({ dateRange }) => {
       },
     },
   };
-
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("income.pie.title")}</h1>
+      <h1 className="font-semibold text-sm">Total Jenis Pembayaran</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">
-          {t("income.notFound")}
-        </p>
+        <p className="text-center text-sm text-gray-500">Takde</p>
       ) : (
         <div className="w-full h-[300px] pt-4">
           <Pie data={pieData()} options={options} />
@@ -94,4 +89,4 @@ const PieTiket = ({ dateRange }) => {
   );
 };
 
-export default PieTiket;
+export default AllPembayaran;

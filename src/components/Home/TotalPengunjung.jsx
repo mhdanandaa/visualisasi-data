@@ -32,10 +32,8 @@ const TotalPengunjung = ({ selectedYear }) => {
       if (!respone.ok) throw new Error(`HTTP error! status: ${respone.status}`);
 
       const data = await respone.json();
-      console.log("🔥 Semua Data dari API:", data);
 
       const filtered = data.filter((item) => item.tahun === selectedYear);
-
       if (filtered.length === 0) {
         setTotal(0);
         setDatas([]);

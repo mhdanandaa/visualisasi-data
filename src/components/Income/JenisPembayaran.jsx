@@ -29,7 +29,7 @@ const TotalPenjualan = ({ dateRange }) => {
         const filtered = data.filter((item) => {
           const itemDate = parse(
             item.tanggal,
-            "dd-MM-yyyy HH:mm:ss",
+            "dd-MM-yyyy",
             new Date()
           );
           return isWithinInterval(itemDate, {
@@ -74,13 +74,12 @@ const TotalPenjualan = ({ dateRange }) => {
       ),
       backgroundColor: [
         "#BC6C25",
-        "#ECD79B",
         "#658864",
-        "#D4A373",
+        "#ECD79B",
+        "#ADADAD",
         "#B7B78A",
         "#ECAB9B",
-        "#6A994E",
-        "#BC2525",
+        "#C09E7F",
       ][index],
     }));
 

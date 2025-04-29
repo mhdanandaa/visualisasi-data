@@ -5,15 +5,41 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+// Hook custom untuk memantau dark mode secara realtime
+const useDarkMode = () => {
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const dark = document.documentElement.classList.contains("dark");
+      setIsDark(dark);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+};
+
 const PendapatanPie = ({ selectedYear }) => {
   const { t } = useTranslation();
+  const isDark = useDarkMode();
 
   const [datas, setDatas] = useState([]);
   const [isAvailable, setIsAvailable] = useState(true);
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Dashboard/pendapatan-tiket.json");
+      const response = await fetch(
+        "http://localhost:3001/api/pendapatan-per-jenis"
+      );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -78,12 +104,16 @@ const PendapatanPie = ({ selectedYear }) => {
     plugins: {
       legend: {
         position: "right",
+        labels: {
+          color: isDark ? "#fff" : "#333", // Custom warna label tergantung dark mode
+        },
       },
     },
   };
+
   return (
-    <div className="bg-bg-card  rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm dark:text-white">
         {t("home.totalPendapatan.title")}
       </h1>
       {isAvailable ? (
@@ -91,7 +121,7 @@ const PendapatanPie = ({ selectedYear }) => {
           <Pie data={pieData()} options={options} />
         </div>
       ) : (
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-500 dark:text-white">
           {t("home.notFound")}
         </p>
       )}

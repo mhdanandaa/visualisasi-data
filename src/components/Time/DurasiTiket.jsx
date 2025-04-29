@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
-import { useTranslation } from "react-i18next";
-import { parse, isWithinInterval } from "date-fns";
+import { isWithinInterval, parse } from "date-fns";
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieTiket = ({ dateRange }) => {
-  const { t } = useTranslation();
+const DurasiTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/pendapatan-tiket.json");
+      const response = await fetch("/API/Time/durasi-kunjungan.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -25,6 +23,7 @@ const PieTiket = ({ dateRange }) => {
           end: dateRange.endDate,
         });
       });
+
       setDatas(filtered);
     } catch (error) {
       console.log("Error mengambil data:", error);
@@ -35,17 +34,17 @@ const PieTiket = ({ dateRange }) => {
     fetchDatas();
   }, [dateRange]);
 
-  const pieData = () => {
+  const doughnutData = () => {
     const ticketTotals = {};
 
     datas.forEach((item) => {
       const jenis = item.jenis_tiket;
-      const total = Number(item.total_pendapatan.replace(/\./g, ""),0);
+      const totalDurasi = item.total_durasi;
 
       if (!ticketTotals[jenis]) {
         ticketTotals[jenis] = 0;
       }
-      ticketTotals[jenis] += total;
+      ticketTotals[jenis] += totalDurasi;
     });
 
     return {
@@ -77,21 +76,18 @@ const PieTiket = ({ dateRange }) => {
       },
     },
   };
-
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("income.pie.title")}</h1>
+      <h1 className="font-semibold text-sm">Total Durasi Kunjungan Berdasarkan Jenis Tiket</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">
-          {t("income.notFound")}
-        </p>
+        <p className="text-center text-sm text-gray-500">alamak takde bg</p>
       ) : (
-        <div className="w-full h-[300px] pt-4">
-          <Pie data={pieData()} options={options} />
+        <div className="h-[300px] w-full py-4">
+          <Doughnut data={doughnutData()} options={options} />
         </div>
       )}
     </div>
   );
 };
 
-export default PieTiket;
+export default DurasiTiket;

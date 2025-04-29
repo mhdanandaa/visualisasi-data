@@ -1,15 +1,23 @@
 import React from "react";
 import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
-import Banner from "../../Components/Home/Banner";
+import Navbar from "../../components/Navbar";
+import Maps from "../../components/Geography/Maps";
 
 const GeographyPage = () => {
   return (
-    <div className="flex">
-      <SidebarFrame />
-      <main className="flex-1 p-6">
-        <Banner />
-        <h1 className="text-2xl font-bold">Geography</h1>
-      </main>
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <div className="flex mt-16">
+        <SidebarFrame />
+        <main className="w-full">
+          <div className="w-full mb-4 mt-4">
+            <h1 className="font-semibold text-2xl">Sebaran Pengunjung</h1>
+          </div>
+          <div className="mr-4 mb-4">
+          <Maps />
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

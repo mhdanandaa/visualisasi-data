@@ -1,11 +1,12 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar.jsx"
 import SidebarItem from "./SidebarItem";
 
 import homeIcon from "../../assets/HomeIcon.svg";
 import paymentIcon from "../../assets/PaymentIcon.svg";
 import mapIcon from "../../assets/MapIcon.svg";
 import timetIcon from "../../assets/TimeIcon.svg";
+import addIcon from "../../assets/AddIcon.svg"
 
 const SidebarFrame = () => {
   return (
@@ -29,6 +30,11 @@ const SidebarFrame = () => {
           icon={<img src={timetIcon} className="w-6 h-6" />}
           text="Waktu"
           to="/time"
+        />
+        <SidebarItem
+          icon={<img src={addIcon} className="w-6 h-6" />}
+          text="Input"
+          to="/input"
         />
     </Sidebar>
   );

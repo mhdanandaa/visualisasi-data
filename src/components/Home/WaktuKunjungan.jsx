@@ -47,10 +47,8 @@ const WaktuKunjungan = ({ selectedYear }) => {
     const timeCategory = {};
 
     datas.forEach((item) => {
-      const timeVisit = item.waktu_kunjungan;
-      const totalSell = Number(
-        item.jumlah_terjual.replace(/\./g, "").replace(",", ".")
-      );
+      const timeVisit = item.kategori_kunjungan;
+      const totalSell = item.jumlah_terjual
 
       if (!timeCategory[timeVisit]) {
         timeCategory[timeVisit] = 0;
@@ -81,7 +79,9 @@ const WaktuKunjungan = ({ selectedYear }) => {
   };
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("home.waktuKunjungan.title")}</h1>
+      <h1 className="font-semibold text-sm">
+        {t("home.waktuKunjungan.title")}
+      </h1>
       {isAvailable ? (
         <div className="h-[300px] w-ful py-4">
           <PolarArea data={polarData()} options={options} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { useTranslation } from "react-i18next";
+import { isWithinInterval, parse } from "date-fns";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { isWithinInterval, parse } from "date-fns";
 
 ChartJS.register(
   CategoryScale,
@@ -20,13 +19,13 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const BarWaktu = ({ dateRange }) => {
-  const { t } = useTranslation();
+
+const KunjunganHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/waktu-kunjungan.json");
+      const response = await fetch("/API/Time/total-kunjungan.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -52,28 +51,23 @@ const BarWaktu = ({ dateRange }) => {
   const barData = () => {
     const labels = ["Pagi", "Siang", "Sore"];
 
-    const dataPendapatan = labels.map((waktu) => {
+    const dataKunjungan = labels.map((waktu) => {
       return datas
         .filter((item) => item.waktu_kunjungan === waktu)
-        .reduce(
-          (total, item) =>
-            total + parseInt(item.jumlah_pendapatan.replace(/\./g, "")),
-          0
-        );
+        .reduce((total, item) => total + item.total_kunjungan, 0);
     });
 
     return {
-      labels,
+      labels: labels,
       datasets: [
         {
-          label: "Total Pendapatan",
-          data: dataPendapatan,
-          backgroundColor: "#C09E7F",
+          label: "Total Kunjungan",
+          data: dataKunjungan,
+          backgroundColor: "#B7B78A",
         },
       ],
     };
   };
-
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -87,11 +81,9 @@ const BarWaktu = ({ dateRange }) => {
 
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("income.time.title")}</h1>
+      <h1 className="font-semibold text-sm">Total Kunjungan Berdasarkan Kategori Waktu</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">
-          {t("income.notFound")}
-        </p>
+        <p className="text-center text-sm text-gray-500">Alamak Takde</p>
       ) : (
         <div className="h-[300px] w-full py-4">
           <Bar data={barData()} options={options} />
@@ -101,4 +93,4 @@ const BarWaktu = ({ dateRange }) => {
   );
 };
 
-export default BarWaktu;
+export default KunjunganHari;

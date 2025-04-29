@@ -1,17 +1,57 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import GeographyPage from "../pages/geography/geographyPage";
 import TimePage from "../pages/time/timePage";
-import IncomePage from "../pages/income/incomePage";
+import IncomePage from "../pages/income/IncomePage";
 import HomePage from "../pages/Home/HomePage";
+import LoginPage from "../pages/login/LoginPage";
+import PrivateRouting from "./PrivateRouting";
+import InputData from "../pages/InputData";
 
 const AllRouting = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/geography" element={<GeographyPage />} />
-      <Route path="/time" element={<TimePage />} />
-      <Route path="/income" element={<IncomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/"
+        element={
+          <PrivateRouting>
+            <HomePage />
+          </PrivateRouting>
+        }
+      />
+      <Route
+        path="/geography"
+        element={
+          <PrivateRouting>
+            <GeographyPage />
+          </PrivateRouting>
+        }
+      />
+      <Route
+        path="/time"
+        element={
+          <PrivateRouting>
+            <TimePage />
+          </PrivateRouting>
+        }
+      />
+      <Route
+        path="/income"
+        element={
+          <PrivateRouting>
+            <IncomePage />
+          </PrivateRouting>
+        }
+      />
+      <Route
+        path="/input"
+        element={
+          <PrivateRouting>
+            <InputData />
+          </PrivateRouting>
+        }
+      />
     </Routes>
   );
 };

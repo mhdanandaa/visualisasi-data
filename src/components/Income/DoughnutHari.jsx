@@ -19,7 +19,7 @@ const DoughnutHari = ({ dateRange }) => {
       const data = await response.json();
 
       const filtered = data.filter((item) => {
-        const itemDate = parse(item.Tanggal, "dd-MM-yyyy HH:mm:ss", new Date());
+        const itemDate = parse(item.Tanggal, "dd-MM-yyyy", new Date());
         return isWithinInterval(itemDate, {
           start: dateRange.startDate,
           end: dateRange.endDate,
@@ -59,7 +59,6 @@ const DoughnutHari = ({ dateRange }) => {
       labels: Object.keys(totalPendapatan),
       datasets: [
         {
-          label: "Total Pendapatan",
           data: Object.values(totalPendapatan),
           backgroundColor: ["#BC6C25", "#658864", "#ECD79B"],
           borderWidth: 0,

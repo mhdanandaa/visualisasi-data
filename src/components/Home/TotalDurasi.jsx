@@ -20,27 +20,39 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const TotalPendapatan = ({ selectedYear }) => {
+
+const TotalDurasi = ({ selectedYear }) => {
   const [datas, setDatas] = useState([]);
   const [total, setTotal] = useState(0);
+  const [formattedTotal, setFormattedTotal] = useState({
+    hours: 0,
+    minutes: 0,
+  });
 
   const fetchDatas = async () => {
     try {
-      const respone = await fetch("/API/Dashboard/total-pendapatan.json");
-      if (!respone.ok) throw new Error();
+      const respone = await fetch("/API/Dashboard/total-durasi.json");
+
+      if (!respone.ok) throw new Error(`HTTP error! status: ${respone.status}`);
 
       const data = await respone.json();
 
       const filtered = data.filter((item) => item.tahun === selectedYear);
+
       if (filtered.length === 0) {
         setTotal(0);
+        setFormattedTotal({ hours: 0, minutes: 0 });
         setDatas([]);
       } else {
-        const totalPendapatan = filtered.reduce(
-          (sum, item) => sum + Number(item.total_pendapatan.replace(/\./g, "")),
+        const totalDurasi = filtered.reduce(
+          (sum, item) => sum + Number(item.total_durasi),
           0
         );
-        setTotal(totalPendapatan);
+        const hours = Math.floor(totalDurasi / 60);
+        const minutes = totalDurasi % 60;
+
+        setTotal(totalDurasi);
+        setFormattedTotal({ hours, minutes });
         setDatas(filtered);
       }
     } catch (error) {
@@ -57,7 +69,7 @@ const TotalPendapatan = ({ selectedYear }) => {
   const lineData = () => {
     const dataMap = {};
     datas.forEach((item) => {
-      dataMap[item.bulan] = Number(item.total_pendapatan.replace(/\./g, ""));
+      dataMap[item.bulan] = Number(item.total_durasi);
     });
 
     const mapping = [
@@ -83,7 +95,7 @@ const TotalPendapatan = ({ selectedYear }) => {
       datasets: [
         {
           data: values,
-          borderColor: "#658864",
+          borderColor: "#ECAB9B",
           borderWidth: 2,
           tension: 0.2,
           fill: true,
@@ -122,8 +134,10 @@ const TotalPendapatan = ({ selectedYear }) => {
   };
   return (
     <div className="flex flex-col justify-between h-full bg-bg-card rounded-2xl pt-4 pl-4">
-      <h1 className="font-normal text-sm">Total Pendapatan</h1>
-      <h1 className="font-semibold text-lg">Rp. {total.toLocaleString()}</h1>
+      <h1 className="font-normal text-sm">Total Durasi Kunjungan</h1>
+      <h1 className="font-semibold text-lg">
+      {formattedTotal.hours} jam {formattedTotal.minutes} menit
+      </h1>
       <div className="flex justify-end items-end w-3/5 ml-auto rounded-3xl">
         <Line data={lineData()} options={options} />
       </div>
@@ -131,4 +145,4 @@ const TotalPendapatan = ({ selectedYear }) => {
   );
 };
 
-export default TotalPendapatan;
+export default TotalDurasi;

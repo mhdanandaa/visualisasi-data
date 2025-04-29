@@ -1,6 +1,6 @@
+import { isWithinInterval, parse } from "date-fns";
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { useTranslation } from "react-i18next";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { isWithinInterval, parse } from "date-fns";
 
 ChartJS.register(
   CategoryScale,
@@ -20,25 +19,29 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const BarWaktu = ({ dateRange }) => {
-  const { t } = useTranslation();
+
+const PendapatanHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/waktu-kunjungan.json");
+      const response = await fetch("/API/Income/pendapatan-jenis-hari.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
       const data = await response.json();
 
+      const endOfDay = new Date(dateRange.endDate);
+      endOfDay.setHours(23, 59, 59, 999);
+
       const filtered = data.filter((item) => {
         const itemDate = parse(item.tanggal, "dd-MM-yyyy", new Date());
         return isWithinInterval(itemDate, {
           start: dateRange.startDate,
-          end: dateRange.endDate,
+          end: endOfDay,
         });
       });
+
       setDatas(filtered);
     } catch (error) {
       console.log("Error mengambil data:", error);
@@ -50,14 +53,21 @@ const BarWaktu = ({ dateRange }) => {
   }, [dateRange]);
 
   const barData = () => {
-    const labels = ["Pagi", "Siang", "Sore"];
-
-    const dataPendapatan = labels.map((waktu) => {
+    const labels = [
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+      "Minggu",
+    ];
+    const dataPendapatan = labels.map((hari) => {
       return datas
-        .filter((item) => item.waktu_kunjungan === waktu)
+        .filter((item) => item.hari === hari)
         .reduce(
           (total, item) =>
-            total + parseInt(item.jumlah_pendapatan.replace(/\./g, "")),
+            total + parseInt(item.total_pendapatan.replace(/\./g, "")),
           0
         );
     });
@@ -66,9 +76,9 @@ const BarWaktu = ({ dateRange }) => {
       labels,
       datasets: [
         {
-          label: "Total Pendapatan",
           data: dataPendapatan,
-          backgroundColor: "#C09E7F",
+          label: "Total Pendapatan",
+          backgroundColor: ["#ECAB9B"],
         },
       ],
     };
@@ -77,23 +87,20 @@ const BarWaktu = ({ dateRange }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: "y",
+    indexAxis: "x",
     plugins: {
       legend: {
         position: "top",
       },
     },
   };
-
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("income.time.title")}</h1>
+      <h1 className="font-semibold text-sm">Total Pendapatan Berdasarkan Hari</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">
-          {t("income.notFound")}
-        </p>
+        <p className="text-center text-sm text-gray-500">Takde</p>
       ) : (
-        <div className="h-[300px] w-full py-4">
+        <div className="w-full h-[300px] pt-4">
           <Bar data={barData()} options={options} />
         </div>
       )}
@@ -101,4 +108,4 @@ const BarWaktu = ({ dateRange }) => {
   );
 };
 
-export default BarWaktu;
+export default PendapatanHari;

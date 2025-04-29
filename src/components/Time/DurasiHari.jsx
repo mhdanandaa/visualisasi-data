@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { useTranslation } from "react-i18next";
 import { parse, isWithinInterval } from "date-fns";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieTiket = ({ dateRange }) => {
-  const { t } = useTranslation();
+const DurasiHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/pendapatan-tiket.json");
+      const response = await fetch("/API/Time/durasi-hari.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -25,6 +23,7 @@ const PieTiket = ({ dateRange }) => {
           end: dateRange.endDate,
         });
       });
+
       setDatas(filtered);
     } catch (error) {
       console.log("Error mengambil data:", error);
@@ -36,23 +35,42 @@ const PieTiket = ({ dateRange }) => {
   }, [dateRange]);
 
   const pieData = () => {
-    const ticketTotals = {};
+    const totalDurasi = {
+      Senin: 0,
+      Selasa: 0,
+      Rabu: 0,
+      Kamis: 0,
+      Jumat: 0,
+      Sabtu: 0,
+      Minggu: 0,
+    };
 
     datas.forEach((item) => {
-      const jenis = item.jenis_tiket;
-      const total = Number(item.total_pendapatan.replace(/\./g, ""),0);
+      const hari = item.hari;
+      const durasi = item.total_durasi;
 
-      if (!ticketTotals[jenis]) {
-        ticketTotals[jenis] = 0;
+      if (hari === "Senin") {
+        totalDurasi["Senin"] += durasi;
+      } else if (hari === "Selasa") {
+        totalDurasi["Selasa"] += durasi;
+      } else if (hari === "Rabu") {
+        totalDurasi["Rabu"] += durasi;
+      } else if (hari === "Kamis") {
+        totalDurasi["Kamis"] += durasi;
+      } else if (hari === "Jumat") {
+        totalDurasi["Jumat"] += durasi;
+      } else if (hari === "Sabtu") {
+        totalDurasi["Sabtu"] += durasi;
+      } else if (hari === "Minggu") {
+        totalDurasi["Minggu"] += durasi;
       }
-      ticketTotals[jenis] += total;
     });
 
     return {
-      labels: Object.keys(ticketTotals),
+      labels: Object.keys(totalDurasi),
       datasets: [
         {
-          data: Object.values(ticketTotals),
+          data: Object.values(totalDurasi),
           backgroundColor: [
             "#BC6C25",
             "#658864",
@@ -77,13 +95,12 @@ const PieTiket = ({ dateRange }) => {
       },
     },
   };
-
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("income.pie.title")}</h1>
+      <h1 className="font-semibold text-sm">Total Durasi Kunjungan Berdasarkan Hari</h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
-          {t("income.notFound")}
+          Takde
         </p>
       ) : (
         <div className="w-full h-[300px] pt-4">
@@ -94,4 +111,4 @@ const PieTiket = ({ dateRange }) => {
   );
 };
 
-export default PieTiket;
+export default DurasiHari;

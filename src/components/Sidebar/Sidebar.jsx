@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import { ChevronFirst, ChevronLast } from "lucide-react";
+import { ChevronFirst } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/LogoKeraton.svg";
 import logoutIcon from "../../assets/LogoutIcon.svg";
@@ -11,7 +12,20 @@ const Sidebar = ({ children }) => {
     const storedExpanded = localStorage.getItem("sidebar-expanded");
     return storedExpanded !== null ? JSON.parse(storedExpanded) : true;
   });
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
 
+      sessionStorage.removeItem("isLoggedIn");
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
   useEffect(() => {
     localStorage.setItem("sidebar-expanded", JSON.stringify(expanded));
   }, [expanded]);
@@ -47,7 +61,10 @@ const Sidebar = ({ children }) => {
             </button>
           </div>
           <ul className="flex-1 px-3 pt-32">{children}</ul>
-          <div className="border-t flex p-3 justify-center items-center">
+          <div
+            className="border-t flex p-3 justify-center items-center cursor-pointer hover:bg-gray-100"
+            onClick={handleLogout}
+          >
             <img
               src={logoutIcon}
               alt="Logout Icon"
