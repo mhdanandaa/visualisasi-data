@@ -12,7 +12,7 @@ const PORT = 3001;
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // ✅ sesuaikan dengan Vite
+    origin: "http://tren.sthresearch.site", // ✅ sesuaikan dengan Vite
     credentials: true,
   })
 );
@@ -29,12 +29,9 @@ app.use(
 );
 
 // Koneksi DB
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "keraton_db",
-});
+const db = mysql.createConnection(
+  "mysql://mysql:xvKu5n19pijA154fCKDs1cMuPCRfADeTlkovnaFnUctDE6rlQtjcHNeL4gNg4mwD@31.220.22.150:3306/default"
+);
 
 // Route login
 app.post("/api/login", (req, res) => {
