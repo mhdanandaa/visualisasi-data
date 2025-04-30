@@ -17,7 +17,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/api/login", {
+      const response = await fetch("http://login.sthresereach.site", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
