@@ -6,9 +6,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/API": {
-        target: "http://localhost", // XAMPP root
+        target: "http://json.sthresearch.site",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/API/, "/Data-Kunjungan"),
+        rewrite: (path) => path.replace(/^\/API/, ""),
       },
     },
   },
