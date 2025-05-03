@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
+import SidebarFrame from "../../components/Sidebar/SidebarFrame";
 import Navbar from "../../components/Navbar";
 import Maps from "../../components/Geography/Maps";
 
@@ -14,7 +14,7 @@ const GeographyPage = () => {
             <h1 className="font-semibold text-2xl">Sebaran Pengunjung</h1>
           </div>
           <div className="mr-4 mb-4">
-          <Maps />
+            <Maps />
           </div>
         </main>
       </div>

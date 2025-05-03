@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SidebarFrame from "../Components/Sidebar/SidebarFrame";
+import SidebarFrame from "../components/Sidebar/SidebarFrame";
 import Navbar from "../components/Navbar";
 
 const InputData = () => {

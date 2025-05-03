@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
+import SidebarFrame from "../../components/Sidebar/SidebarFrame";
 import DurasiHari from "../../components/Time/DurasiHari";
 import Navbar from "../../components/Navbar";
 import DatePicker from "../../components/Income/DatePicker";

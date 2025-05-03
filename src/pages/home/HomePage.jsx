@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SidebarFrame from "../../Components/Sidebar/SidebarFrame";
-import Banner from "../../Components/Home/Banner";
+import SidebarFrame from "../../components/Sidebar/SidebarFrame";
+import Banner from "../../components/Home/Banner";
 import Navbar from "../../components/Navbar";
 import TotalPengunjung from "../../components/Home/TotalPengunjung";
 import WaktuKunjungan from "../../components/Home/WaktuKunjungan";
