@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarFrame from "./Components/Sidebar/SidebarFrame";
+import SidebarFrame from "./components/Sidebar/SidebarFrame";
 import AllRouting from "./components/AllRouting";
 
 function App() {
