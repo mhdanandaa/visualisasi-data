@@ -19,7 +19,7 @@ const WaktuKunjungan = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const respone = await fetch("/API/Dashboard/waktu-kunjungan.json");
+      const respone = await fetch("/Dashboard/waktu-kunjungan.json");
       if (!respone.ok) throw new Error(`HTTP error! status: ${respone.status}`);
 
       const data = await respone.json();
@@ -48,7 +48,7 @@ const WaktuKunjungan = ({ selectedYear }) => {
 
     datas.forEach((item) => {
       const timeVisit = item.kategori_kunjungan;
-      const totalSell = item.jumlah_terjual
+      const totalSell = item.jumlah_terjual;
 
       if (!timeCategory[timeVisit]) {
         timeCategory[timeVisit] = 0;
