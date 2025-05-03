@@ -17,7 +17,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch("http://login.sthresereach.site", {
+      const response = await fetch("http://login.sthresereach.site/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const LoginPage = () => {
       const result = await response.json();
 
       if (result.success) {
-        sessionStorage.setItem("isLoggedIn", "true")
+        sessionStorage.setItem("isLoggedIn", "true");
         alert("Selamat Datang");
         navigate("/");
       } else {
@@ -53,15 +53,21 @@ const LoginPage = () => {
                 <div className="flex">
                   <img src={logo} alt="" className="h-12" />
                   <div className="flex-row pl-4">
-                    <h1 className="font-semibold text-lg text-gray-700">Tren</h1>
-                    <h1 className="font-semibold text-lg text-gray-700">Kasepuhan</h1>
+                    <h1 className="font-semibold text-lg text-gray-700">
+                      Tren
+                    </h1>
+                    <h1 className="font-semibold text-lg text-gray-700">
+                      Kasepuhan
+                    </h1>
                   </div>
                 </div>
 
                 {/* Tulisan Login */}
                 <div className="pt-6 pb-10">
                   <h1 className="font-bold text-3xl">Login</h1>
-                  <p className="text-gray-500">Masukkan username dan password anda!</p>
+                  <p className="text-gray-500">
+                    Masukkan username dan password anda!
+                  </p>
                 </div>
 
                 {/* Form Input */}
