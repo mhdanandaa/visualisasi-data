@@ -12,7 +12,7 @@ const PORT = 3001;
 
 app.use(
   cors({
-    origin: "http://tren.sthresearch.site", // ✅ sesuaikan dengan Vite
+    origin: "https://tren.sthresearch.site", // ✅ sesuaikan dengan Vite
     credentials: true,
   })
 );
