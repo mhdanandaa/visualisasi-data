@@ -18,7 +18,7 @@ const HomePage = () => {
 
   const fetchAllDatas = async () => {
     const urls = [
-      "/API/Dashboard/total-pengunjung.json",
+      "https:/json.sthresearch.site/Dashboard/total-pengunjung.json",
       "/API/Dashboard/pengunjung-hari.json",
     ];
 
