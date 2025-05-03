@@ -27,7 +27,7 @@ const TotalPengunjung = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const respone = await fetch("/API/Dashboard/total-pengunjung.json");
+      const respone = await fetch("/Dashboard/total-pengunjung.json");
 
       if (!respone.ok) throw new Error(`HTTP error! status: ${respone.status}`);
 
