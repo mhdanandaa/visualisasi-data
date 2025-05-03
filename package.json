@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "node src/backend/Server.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.1.1",
