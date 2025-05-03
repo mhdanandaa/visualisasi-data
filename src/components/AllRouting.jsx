@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import GeographyPage from "../pages/geography/GeographyPage";
 import TimePage from "../pages/time/TimePage";
 import IncomePage from "../pages/income/IncomePage";
-import HomePage from "../pages/Home/HomePage";
+import HomePage from "../pages/home/HomePage";
 import LoginPage from "../pages/login/LoginPage";
 import PrivateRouting from "./PrivateRouting";
 import InputData from "../pages/InputData";
