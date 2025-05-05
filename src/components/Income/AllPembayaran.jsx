@@ -10,7 +10,7 @@ const AllPembayaran = ({ dateRange }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/jenis-pembayaran.json");
+      const response = await fetch("https://json.sthresearch.site/Income/jenis-pembayaran.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

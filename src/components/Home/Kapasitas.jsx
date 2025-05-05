@@ -28,7 +28,7 @@ const Kapasitas = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Dashboard/kapasitas.json");
+      const response = await fetch("https://json.sthresearch.site/Dashboard/kapasitas.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

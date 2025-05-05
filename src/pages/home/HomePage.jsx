@@ -18,8 +18,7 @@ const HomePage = () => {
 
   const fetchAllDatas = async () => {
     const urls = [
-      "https:/json.sthresearch.site/Dashboard/total-pengunjung.json",
-      "/API/Dashboard/pengunjung-hari.json",
+      "https://json.sthresearch.site/Dashboard/total-pengunjung.json",
     ];
 
     try {
@@ -27,21 +26,38 @@ const HomePage = () => {
 
       for (const url of urls) {
         const response = await fetch(url);
+
+        const rawText = await response.text();
+        console.log("RESPON MENTAH DARI API:", rawText);
+
         if (!response.ok)
-          throw new Error(`HTTP error from ${url}! status: ${response.status}`);
+          throw new Error(`HTTP error dari ${url}! status: ${response.status}`);
 
-        const data = await response.json();
+        try {
+          const data = JSON.parse(rawText);
+          console.log("Data terparse:", data);
 
-        data.forEach((item) => {
-          const year = item.tahun;
-          if (year) yearSet.add(year);
-        });
+          if (Array.isArray(data)) {
+            data.forEach((item) => {
+              const year = item.tahun;
+              if (year) yearSet.add(year);
+            });
+          } else {
+            console.error("Data bukan array:", data);
+          }
+
+        } catch (parseErr) {
+          console.error("Gagal parsing JSON:", parseErr);
+        }
       }
 
       const sortedYears = Array.from(yearSet).sort();
       setAvailableYears(sortedYears);
+      console.log("Tahun yang tersedia:", sortedYears);
 
-      if (sortedYears.length > 0) setSelectedYear(sortedYears[0]);
+      if (sortedYears.length > 0) {
+        setSelectedYear(sortedYears[0]);
+      }
     } catch (error) {
       console.error("Gagal mengambil data dari API:", error);
     }
