@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -21,10 +22,13 @@ ChartJS.register(
 );
 const RataTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+  const { t } = useTranslation;
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("https://json.sthresearch.site/Time/rata-rata-durasi.json");
+      const response = await fetch(
+        "https://json.sthresearch.site/Time/rata-rata-durasi.json"
+      );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -51,8 +55,8 @@ const RataTiket = ({ dateRange }) => {
     const ticketAvg = {};
 
     datas.forEach((item) => {
-        const jenis = item.jenis_tiket;
-        const rataDurasi = item.rata_rata;
+      const jenis = item.jenis_tiket;
+      const rataDurasi = item.rata_rata;
 
       if (!ticketAvg[jenis]) {
         ticketAvg[jenis] = 0;
@@ -85,9 +89,11 @@ const RataTiket = ({ dateRange }) => {
   };
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Rata-Rata Durasi Kunjungan Berdasarkan Jenis Tiket</h1>
+      <h1 className="font-semibold text-sm">{t("time.avg_ticket.title")}</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">alamak takde bg</p>
+        <p className="text-center text-sm text-gray-500">
+          {t("time.notFound")}
+        </p>
       ) : (
         <div className="h-[300px] w-full py-4">
           <Bar data={barData()} options={options} />

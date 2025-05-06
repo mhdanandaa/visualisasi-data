@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -22,10 +23,13 @@ ChartJS.register(
 
 const PendapatanHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+  const { t } = useTranslation();
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("https://json.sthresearch.site/Income/pendapatan-jenis-hari.json");
+      const response = await fetch(
+        "https://json.sthresearch.site/Income/pendapatan-jenis-hari.json"
+      );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -96,9 +100,13 @@ const PendapatanHari = ({ dateRange }) => {
   };
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Total Pendapatan Berdasarkan Hari</h1>
+      <h1 className="font-semibold text-sm">
+        Total Pendapatan Berdasarkan Hari
+      </h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">Takde</p>
+        <p className="text-center text-sm text-gray-500">
+          {t("income.notFound")}
+        </p>
       ) : (
         <div className="w-full h-[300px] pt-4">
           <Bar data={barData()} options={options} />

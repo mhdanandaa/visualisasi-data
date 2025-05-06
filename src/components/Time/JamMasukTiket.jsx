@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -24,10 +25,13 @@ ChartJS.register(
 
 const JamMasukTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+  const { t } = useTranslation;
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("https://json.sthresearch.site/Time/jam-masuk.json");
+      const response = await fetch(
+        "https://json.sthresearch.site/Time/jam-masuk.json"
+      );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -72,27 +76,25 @@ const JamMasukTiket = ({ dateRange }) => {
     });
 
     const lineColors = [
-        "#BC6C25",
-        "#658864",
-        "#ECD79B",
-        "#ADADAD",
-        "#B7B78A",
-        "#ECAB9B",
-        "#C09E7F",
-
-    ]
+      "#BC6C25",
+      "#658864",
+      "#ECD79B",
+      "#ADADAD",
+      "#B7B78A",
+      "#ECAB9B",
+      "#C09E7F",
+    ];
 
     const bgColor = [
-        "rgba(188, 108, 37, 0.2)",
-        "rgba(101, 136, 100, 0.2)",
-        "rgba(236, 215, 155, 0.2)",
-        "rgba(173, 173, 173, 0.2)",
-        "rgba(155, 202, 236, 0.2)",
-        "rgba(183, 183, 138, 0.2)",
-        "rgba(236, 171, 155, 0.2)",
-        "rgba(192, 158, 127, 0.2)",
-
-    ]
+      "rgba(188, 108, 37, 0.2)",
+      "rgba(101, 136, 100, 0.2)",
+      "rgba(236, 215, 155, 0.2)",
+      "rgba(173, 173, 173, 0.2)",
+      "rgba(155, 202, 236, 0.2)",
+      "rgba(183, 183, 138, 0.2)",
+      "rgba(236, 171, 155, 0.2)",
+      "rgba(192, 158, 127, 0.2)",
+    ];
     const datasets = Object.keys(ticketTotals).map((jenis, index) => ({
       label: jenis,
       data: allJam.map((jam) => ticketTotals[jenis][jam] || 0),
@@ -100,7 +102,7 @@ const JamMasukTiket = ({ dateRange }) => {
       borderWidth: 2,
       backgroundColor: bgColor[index % bgColor.length],
       tension: 0.1,
-      fill: true
+      fill: true,
     }));
     return {
       labels: allJam.map((jam) => `${jam}:00`),
@@ -119,9 +121,11 @@ const JamMasukTiket = ({ dateRange }) => {
 
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Total Kunjungan Dari Jam Masuk Berdasarkan Jenis Tiket</h1>
+      <h1 className="font-semibold text-sm">{t("time.line.title")}</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">alamak takde bg</p>
+        <p className="text-center text-sm text-gray-500">
+          {t("time.notFound")}
+        </p>
       ) : (
         <div className="h-[300px] w-full py-4">
           <Line data={lineData()} options={options} />

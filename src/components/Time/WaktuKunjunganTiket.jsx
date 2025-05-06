@@ -2,31 +2,34 @@ import { isWithinInterval, parse } from "date-fns";
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from "chart.js";
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-  
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { useTranslation } from "react-i18next";
 
-const WaktuKunjunganTiket = ({dateRange}) => {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const WaktuKunjunganTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+  const { t } = useTranslation;
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("https://json.sthresearch.site/Time/kunjungan-waktu.json");
+      const response = await fetch(
+        "https://json.sthresearch.site/Time/kunjungan-waktu.json"
+      );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -101,9 +104,11 @@ const WaktuKunjunganTiket = ({dateRange}) => {
   };
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Total Kunjungan Dari Kategori Waktu Berdasarkan Jenis Tiket</h1>
+      <h1 className="font-semibold text-sm">{t("time.bar.title")}</h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">alamak takde bg</p>
+        <p className="text-center text-sm text-gray-500">
+          {t("time.notFound")}
+        </p>
       ) : (
         <div className="h-[300px] w-full py-4">
           <Bar data={barData()} options={options} />

@@ -40,5 +40,29 @@
     "payment": {
       "title": "Total Pendapatan dari Jenis Pembayaran Berdasarkan Jenis Tiket"
     }
+  },
+  "time": {
+    "notFound": "There is no data from the selected time range",
+    "bar_day": {
+      "title": "Total Kunjungan Berdasarkan Kategori Waktu"
+    },
+    "pie_visitors": {
+      "title": "Total Durasi Kunjungan Berdasarkan Hari"
+    },
+    "avg_day": {
+      "title": "Rata-Rata Durasi Kunjungan Berdasarkan Hari"
+    },
+    "avg_ticket": {
+      "title": "Rata-Rata Durasi Kunjungan Berdasarkan Jenis Tiket"
+    },
+    "total_ticket": {
+      "title": "Total Durasi Kunjungan Berdasarkan Jenis Tiket"
+    },
+    "line": {
+      "title": "Total Kunjungan Dari Jam Masuk Berdasarkan Jenis Tiket"
+    },
+    "bar": {
+      "title": "Total Kunjungan Dari Kategori Waktu Berdasarkan Jenis Tiket"
+    }
   }
 }
