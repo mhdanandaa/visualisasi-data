@@ -54,7 +54,7 @@
   },
   "time": {
     "title": "Waktu",
-    "notFound": "There is no data from the selected time range",
+    "notFound": "Tidak ada data dari rentang waktu yang dipilih",
     "bar_day": {
       "title": "Total Kunjungan Berdasarkan Kategori Waktu"
     },
