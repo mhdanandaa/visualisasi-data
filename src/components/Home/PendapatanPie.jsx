@@ -38,7 +38,7 @@ const PendapatanPie = ({ selectedYear }) => {
   const fetchDatas = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/pendapatan-per-jenis"
+        "https://json.sthresearch.site/Dashboard/pendapatan-tiket.json"
       );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);

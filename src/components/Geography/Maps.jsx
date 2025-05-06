@@ -14,9 +14,9 @@ const Maps = () => {
 
   const fetchData = async () => {
     try {
-      const respone = await fetch("/API/negara.GeoJson");
+      const respone = await fetch("https://json.sthresearch.site/negara.GeoJson");
       if (!respone.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${respone.status}`);
       const data = await respone.json();
       setGeoData(data);
     } catch (error) {

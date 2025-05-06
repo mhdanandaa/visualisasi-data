@@ -31,7 +31,7 @@ const TotalDurasi = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const respone = await fetch("/API/Dashboard/total-durasi.json");
+      const respone = await fetch("https://json.sthresearch.site/Dashboard/total-durasi.json");
 
       if (!respone.ok) throw new Error(`HTTP error! status: ${respone.status}`);
 

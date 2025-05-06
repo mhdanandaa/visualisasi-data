@@ -25,7 +25,7 @@ const PendapatanHari = ({ dateRange }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/pendapatan-jenis-hari.json");
+      const response = await fetch("https://json.sthresearch.site/Income/pendapatan-jenis-hari.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

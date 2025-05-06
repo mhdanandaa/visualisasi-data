@@ -26,7 +26,7 @@ const TotalPendapatan = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const respone = await fetch("/API/Dashboard/total-pendapatan.json");
+      const respone = await fetch("https://json.sthresearch.site/Dashboard/total-pendapatan.json");
       if (!respone.ok) throw new Error();
 
       const data = await respone.json();

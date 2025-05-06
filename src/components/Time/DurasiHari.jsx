@@ -10,7 +10,7 @@ const DurasiHari = ({ dateRange }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Time/durasi-hari.json");
+      const response = await fetch("https://json.sthresearch.site/Time/durasi-hari.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

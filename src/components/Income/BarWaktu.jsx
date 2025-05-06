@@ -26,7 +26,7 @@ const BarWaktu = ({ dateRange }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Income/waktu-kunjungan.json");
+      const response = await fetch("https://json.sthresearch.site/Income/waktu-kunjungan.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

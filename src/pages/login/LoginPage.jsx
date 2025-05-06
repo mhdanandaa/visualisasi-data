@@ -109,7 +109,11 @@ const LoginPage = () => {
             <h1 className="font-bold text-3xl text-white">Selamat Datang!</h1>
             <p className="text-white">Portal Tren Kasepuhan</p>
           </div>
-          <img src={keraton} alt="" className="h-[60%] rounded-xl mx-8 mt-10" />
+          <img
+            src={keraton}
+            alt=""
+            className="w-full max-w-[600px] h-auto object-cover rounded-xl mx-auto mt-10"
+          />{" "}
         </div>
       </div>
     </div>

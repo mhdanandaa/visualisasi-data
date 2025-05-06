@@ -10,7 +10,7 @@ const DurasiTiket = ({ dateRange }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Time/durasi-kunjungan.json");
+      const response = await fetch("https://json.sthresearch.site/Time/durasi-kunjungan.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

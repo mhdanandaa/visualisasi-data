@@ -25,7 +25,7 @@ const RataHari = ({ dateRange }) => {
 
   const fetchDatas = async () => {
     try {
-      const response = await fetch("/API/Time/rata-rata-hari.json");
+      const response = await fetch("https://json.sthresearch.site/rata-rata-hari.json");
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
 

@@ -19,7 +19,7 @@ const WaktuKunjungan = ({ selectedYear }) => {
 
   const fetchDatas = async () => {
     try {
-      const respone = await fetch("/Dashboard/waktu-kunjungan.json");
+      const respone = await fetch("https://json.sthresearch.site/Dashboard/waktu-kunjungan.json");
       if (!respone.ok) throw new Error(`HTTP error! status: ${respone.status}`);
 
       const data = await respone.json();
