@@ -1,5 +1,6 @@
 {
   "home": {
+    "title": "Dashboard",
     "notFound": "There is no data for this year",
     "banner": {
       "greating": "Good",
@@ -27,6 +28,7 @@
     }
   },
   "income": {
+    "title": "Revenue",
     "notFound": "There is no data from the selected time range",
     "pie": {
       "title": "Total Revenue by Ticket Type"
@@ -39,9 +41,19 @@
     },
     "payment": {
       "title": "Total Revenue from Payments by Ticket Type"
+    },
+    "total_payment": {
+      "title": "Total Ticket Type"
+    },
+    "payment_day": {
+      "title": "Total Revenue by Day"
     }
   },
+  "geo": {
+    "title": "Geography"
+  },
   "time": {
+    "title": "Time",
     "notFound": "There is no data from the selected time range",
     "bar_day": {
       "title": "Total Visitors by Time Category"

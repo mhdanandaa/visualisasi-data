@@ -81,7 +81,9 @@ const AllPembayaran = ({ dateRange }) => {
   };
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Total Jenis Pembayaran</h1>
+      <h1 className="font-semibold text-sm">
+        {t("income.total_payment.title")}
+      </h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
           {t("income.notFound")}

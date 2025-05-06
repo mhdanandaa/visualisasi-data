@@ -8,12 +8,14 @@ import PieTiket from "../../components/Income/PieTiket";
 import DoughnutHari from "../../components/Income/DoughnutHari";
 import PendapatanHari from "../../components/Income/PendapatanHari";
 import AllPembayaran from "../../components/Income/AllPembayaran";
+import { useTranslation } from "react-i18next";
 const IncomePage = () => {
   const [dateRange, setDateRange] = useState({
     startDate: new Date("2024-07-01"),
     endDate: new Date("2024-07-03"),
     key: "selection",
   });
+  const {t} = useTranslation()
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
@@ -21,7 +23,7 @@ const IncomePage = () => {
         <SidebarFrame />
         <main className="w-full">
           <div className="w-full mb-4 mt-4">
-            <h1 className="font-semibold text-2xl">Pendapatan</h1>
+            <h1 className="font-semibold text-2xl">{t("income.title")}</h1>
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <PieTiket dateRange={dateRange} />

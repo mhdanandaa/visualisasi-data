@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DurasiTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
-  const { t } = useTranslation;
+  const { t } = useTranslation();
 
   const fetchDatas = async () => {
     try {

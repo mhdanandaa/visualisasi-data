@@ -9,6 +9,7 @@ import DurasiTiket from "../../components/Time/DurasiTiket";
 import RataTiket from "../../components/Time/RataTiket";
 import JamMasukTiket from "../../components/Time/JamMasukTiket";
 import WaktuKunjunganTiket from "../../components/Time/WaktuKunjunganTiket";
+import { useTranslation } from "react-i18next";
 
 const TimePage = () => {
   const [dateRange, setDateRange] = useState({
@@ -16,6 +17,7 @@ const TimePage = () => {
     endDate: new Date("2024-07-13"),
     key: "selection",
   });
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col h-screen">
@@ -24,7 +26,7 @@ const TimePage = () => {
         <SidebarFrame />
         <main className="w-full">
           <div className="w-full mb-4 mt-4">
-            <h1 className="font-semibold text-2xl">Waktu</h1>
+            <h1 className="font-semibold text-2xl">{t("time.title")}</h1>
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <div className="col-span-2">
@@ -35,8 +37,8 @@ const TimePage = () => {
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <DurasiHari dateRange={dateRange} />
             <div className="col-span-2">
-            <RataHari dateRange={dateRange} />
-          </div>
+              <RataHari dateRange={dateRange} />
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <div className="col-span-2">

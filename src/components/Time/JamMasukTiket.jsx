@@ -25,7 +25,7 @@ ChartJS.register(
 
 const JamMasukTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
-  const { t } = useTranslation;
+  const { t } = useTranslation();
 
   const fetchDatas = async () => {
     try {

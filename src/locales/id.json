@@ -1,5 +1,6 @@
 {
   "home": {
+    "title": "Halaman Utama",
     "notFound": "Tidak ada data pada tahun ini",
     "banner": {
       "greating": "Selamat",
@@ -27,6 +28,7 @@
     }
   },
   "income": {
+    "title": "Pendapatan",
     "notFound": "Tidak ada data dari rentang waktu yang dipilih",
     "pie": {
       "title": "Total Pendapatan Berdasarkan Jenis Tiket"
@@ -39,9 +41,19 @@
     },
     "payment": {
       "title": "Total Pendapatan dari Jenis Pembayaran Berdasarkan Jenis Tiket"
+    },
+    "total_payment": {
+      "title": "Total Jenis Pembayaran"
+    },
+    "payment_day": {
+      "title": "Total Pendapatan Berdasarkan Hari"
     }
   },
+  "geo": {
+    "title": "Sebaran Pengunjung"
+  },
   "time": {
+    "title": "Waktu",
     "notFound": "There is no data from the selected time range",
     "bar_day": {
       "title": "Total Kunjungan Berdasarkan Kategori Waktu"
