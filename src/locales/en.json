@@ -48,7 +48,7 @@
       "title": "Total Revenue from Payments by Ticket Type"
     },
     "total_payment": {
-      "title": "Total Ticket Type"
+      "title": "Total Revenue by Payment Type"
     },
     "payment_day": {
       "title": "Total Revenue by Day"

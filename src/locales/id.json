@@ -48,7 +48,7 @@
       "title": "Total Pendapatan dari Jenis Pembayaran Berdasarkan Jenis Tiket"
     },
     "total_payment": {
-      "title": "Total Jenis Pembayaran"
+      "title": "Total Pendapatan Berdasarkan Jenis Pembayaran"
     },
     "payment_day": {
       "title": "Total Pendapatan Berdasarkan Hari"

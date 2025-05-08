@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AllPembayaran = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
-  const isDark = useDarkMode()
+  const {t} = useTranslation()
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -82,9 +84,14 @@ const AllPembayaran = ({ dateRange }) => {
   };
   return (
     <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm dark:text-white text-label-custom">Total Jenis Pembayaran</h1>
+      <h1 className="font-semibold text-sm dark:text-white text-label-custom">
+        {" "}
+        {t("income.total_payment.title")}
+      </h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500 dark:text-white">Takde</p>
+        <p className="text-center text-sm text-gray-500 dark:text-white">
+          Takde
+        </p>
       ) : (
         <div className="w-full h-[300px] pt-4">
           <Pie data={pieData()} options={options} />
