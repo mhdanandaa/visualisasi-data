@@ -53,6 +53,7 @@ const PieTiket = ({ dateRange }) => {
       datasets: [
         {
           data: Object.values(ticketTotals),
+          label: "Total Pendapatan",
           backgroundColor: [
             "#BC6C25",
             "#658864",

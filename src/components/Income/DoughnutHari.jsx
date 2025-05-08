@@ -60,6 +60,7 @@ const DoughnutHari = ({ dateRange }) => {
       datasets: [
         {
           data: Object.values(totalPendapatan),
+          label: "Total Pendapatan",
           backgroundColor: ["#BC6C25", "#658864", "#ECD79B"],
           borderWidth: 0,
         },
