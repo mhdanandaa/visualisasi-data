@@ -65,7 +65,7 @@
       "title": "Total Visitors by Time Category"
     },
     "pie_visitors": {
-      "title": "Total Visit Duration by Day"
+      "title": "Total Duration of Visit by Day"
     },
     "avg_day": {
       "title": "Average Visit Duration by Day"
@@ -74,7 +74,7 @@
       "title": "Average Visit Duration by Ticket Type"
     },
     "total_ticket": {
-      "title": "Total Visit Duration by Ticket Type"
+      "title": "Total Duration of Visit by Ticket Type"
     },
     "line": {
       "title": "Total Visits from Entry Hours by Ticket Type"

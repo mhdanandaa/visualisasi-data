@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +25,8 @@ ChartJS.register(
 const RataHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
-  const isDark = useDarkMode()
+  const { t } = useTranslation();
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -63,8 +65,10 @@ const RataHari = ({ dateRange }) => {
     ];
 
     const rataDurasi = labels.map((hari) => {
-      return datas.filter((item) => item.hari === hari).reduce((total, item) => total + item.rata_rata_durasi, 0)
-    })
+      return datas
+        .filter((item) => item.hari === hari)
+        .reduce((total, item) => total + item.rata_rata_durasi, 0);
+    });
 
     return {
       labels: labels,
@@ -72,9 +76,7 @@ const RataHari = ({ dateRange }) => {
         {
           label: "Rata-Rata Durasi",
           data: rataDurasi,
-          backgroundColor: [
-            "#BC6C25",
-          ],
+          backgroundColor: ["#BC6C25"],
           borderWidth: 0,
         },
       ],
@@ -99,7 +101,9 @@ const RataHari = ({ dateRange }) => {
             if (totalMinutes >= 60) {
               const hours = Math.floor(totalMinutes / 60);
               const minutes = totalMinutes % 60;
-              return `${context.dataset.label}: ${hours} jam${minutes > 0 ? ` ${minutes} menit` : ""}`;
+              return `${context.dataset.label}: ${hours} jam${
+                minutes > 0 ? ` ${minutes} menit` : ""
+              }`;
             } else {
               return `${context.dataset.label}: ${totalMinutes} menit`;
             }
@@ -124,12 +128,14 @@ const RataHari = ({ dateRange }) => {
           color: isDark ? "#444" : "#CCC",
         },
       },
-    }
+    },
   };
-  
+
   return (
     <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm text-label-custom dark:text-white">Rata-Rata Durasi Kunjungan Berdasarkan Hari</h1>
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">
+        {t("time.avg_day.title")}
+      </h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">alamak takde bg</p>
       ) : (

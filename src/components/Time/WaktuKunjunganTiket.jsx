@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -23,7 +24,7 @@ ChartJS.register(
 
 const WaktuKunjunganTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
-
+  const { t } = useTranslation();
   const isDark = useDarkMode();
 
   const fetchDatas = async () => {
@@ -121,12 +122,12 @@ const WaktuKunjunganTiket = ({ dateRange }) => {
           color: isDark ? "#444" : "#CCC",
         },
       },
-    }
+    },
   };
   return (
     <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
       <h1 className="font-semibold text-sm text-label-custom dark:text-white">
-        Total Kunjungan Dari Kategori Waktu Berdasarkan Jenis Tiket
+      {t("time.line.title")}
       </h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">alamak takde bg</p>

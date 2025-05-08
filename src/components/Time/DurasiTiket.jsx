@@ -3,11 +3,14 @@ import { isWithinInterval, parse } from "date-fns";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DurasiTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+
+  const {t} = useTranslation()
 
   const isDark = useDarkMode()
 
@@ -99,7 +102,8 @@ const DurasiTiket = ({ dateRange }) => {
   };
   return (
     <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm text-label-custom dark:text-white">Total Durasi Kunjungan Berdasarkan Jenis Tiket</h1>
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">        {t("time.total_ticket.title")}
+      </h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">alamak takde bg</p>
       ) : (

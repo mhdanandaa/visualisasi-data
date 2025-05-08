@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +23,8 @@ ChartJS.register(
 );
 const RataTiket = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
-  const isDark = useDarkMode()
+  const { t } = useTranslation();
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -53,8 +55,8 @@ const RataTiket = ({ dateRange }) => {
     const ticketAvg = {};
 
     datas.forEach((item) => {
-        const jenis = item.jenis_tiket;
-        const rataDurasi = item.rata_rata;
+      const jenis = item.jenis_tiket;
+      const rataDurasi = item.rata_rata;
 
       if (!ticketAvg[jenis]) {
         ticketAvg[jenis] = 0;
@@ -93,7 +95,9 @@ const RataTiket = ({ dateRange }) => {
             if (totalMinutes >= 60) {
               const hours = Math.floor(totalMinutes / 60);
               const minutes = totalMinutes % 60;
-              return `${context.dataset.label}: ${hours} jam${minutes > 0 ? ` ${minutes} menit` : ""}`;
+              return `${context.dataset.label}: ${hours} jam${
+                minutes > 0 ? ` ${minutes} menit` : ""
+              }`;
             } else {
               return `${context.dataset.label}: ${totalMinutes} menit`;
             }
@@ -118,12 +122,14 @@ const RataTiket = ({ dateRange }) => {
           color: isDark ? "#444" : "#CCC",
         },
       },
-    }
+    },
   };
-  
+
   return (
     <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm text-label-custom dark:text-white">Rata-Rata Durasi Kunjungan Berdasarkan Jenis Tiket</h1>
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">
+      {t("time.avg_ticket.title")}
+      </h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">alamak takde bg</p>
       ) : (
