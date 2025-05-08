@@ -55,7 +55,8 @@
     }
   },
   "geo": {
-    "title": "Geography"
+    "title": "Distribution of Visitors",
+    "jumlah_pengunjung": "Number of Visitors"
   },
   "time": {
     "title": "Time",

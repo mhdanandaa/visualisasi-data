@@ -55,7 +55,9 @@
     }
   },
   "geo": {
-    "title": "Sebaran Pengunjung"
+    "title": "Sebaran Pengunjung",
+    "jumlah_pengunjung": "Jumlah Pengunjung"
+
   },
   "time": {
     "title": "Waktu",

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useTranslation } from "react-i18next";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWhkYW5hbmRhYSIsImEiOiJjbTN2ajdtdmkwdjY0Mm1vZWFtY2FnZWQzIn0.xANg_9pFGZPF_TxLiqxvFg";
@@ -11,6 +12,8 @@ const Maps = () => {
   const popUp = useRef(null);
   const [geoData, setGeoData] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  const {t} = useTranslation()
 
   const fetchData = async () => {
     try {
@@ -106,7 +109,7 @@ const Maps = () => {
 
       {/* ✅ Legend */}
       <div className="absolute bottom-4 left-4 bg-white p-3 rounded shadow-md text-sm border border-gray-300">
-        <h4 className="font-bold mb-2">Jumlah Pengunjung</h4>
+        <h4 className="font-bold mb-2">{t("geo.jumlah_pengunjung")}</h4>
         <div className="flex items-center mb-1">
           <div className="w-4 h-4 bg-[#A3EB68] mr-2"></div> 1 - 499
         </div>
