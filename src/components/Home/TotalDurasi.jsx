@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +31,8 @@ const TotalDurasi = ({ selectedYear }) => {
     minutes: 0,
   });
 
+    const {t} = useTranslation()
+  
   const isDark = useDarkMode();
 
   const fetchDatas = async () => {
@@ -139,7 +142,8 @@ const TotalDurasi = ({ selectedYear }) => {
   return (
     <div className="flex flex-col justify-between h-full bg-bg-card dark:bg-dark-mode rounded-2xl pt-4 pl-4">
       <h1 className="font-normal text-sm text-label-custom dark:text-white">
-        Total Durasi Kunjungan
+      {t("home.overview.durasi")}
+
       </h1>
       <h1 className="font-semibold text-lg text-label-custom dark:text-white">
         {formattedTotal.hours} jam {formattedTotal.minutes} menit

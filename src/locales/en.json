@@ -1,5 +1,6 @@
 {
   "home": {
+    "title": "Dashboard",
     "notFound": "There is no data for this year",
     "banner": {
       "greating": "Good",
@@ -9,6 +10,11 @@
         "evening": "Evening",
         "night": "Night"
       }
+    },
+    "overview": {
+      "pendapatan": "Total Revenue",
+      "durasi": "Total Duration",
+      "pengunjung": "Total Visitors"
     },
     "totalPendapatan": {
       "title": "Total Revenue"
@@ -27,6 +33,7 @@
     }
   },
   "income": {
+    "title": "Revenue",
     "notFound": "There is no data from the selected time range",
     "pie": {
       "title": "Total Revenue by Ticket Type"
@@ -39,6 +46,40 @@
     },
     "payment": {
       "title": "Total Revenue from Payments by Ticket Type"
+    },
+    "total_payment": {
+      "title": "Total Ticket Type"
+    },
+    "payment_day": {
+      "title": "Total Revenue by Day"
+    }
+  },
+  "geo": {
+    "title": "Geography"
+  },
+  "time": {
+    "title": "Time",
+    "notFound": "There is no data from the selected time range",
+    "bar_day": {
+      "title": "Total Visitors by Time Category"
+    },
+    "pie_visitors": {
+      "title": "Total Visit Duration by Day"
+    },
+    "avg_day": {
+      "title": "Average Visit Duration by Day"
+    },
+    "avg_ticket": {
+      "title": "Average Visit Duration by Ticket Type"
+    },
+    "total_ticket": {
+      "title": "Total Visit Duration by Ticket Type"
+    },
+    "line": {
+      "title": "Total Visits from Entry Hours by Ticket Type"
+    },
+    "bar": {
+      "title": "Total Visits by Time Category by Ticket Type"
     }
   }
 }

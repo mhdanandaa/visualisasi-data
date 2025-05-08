@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import useDarkMode from "../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +25,9 @@ ChartJS.register(
 const TotalPendapatan = ({ selectedYear }) => {
   const [datas, setDatas] = useState([]);
   const [total, setTotal] = useState(0);
+
+    const {t} = useTranslation()
+  
 
   const isDark = useDarkMode();
 
@@ -126,7 +130,8 @@ const TotalPendapatan = ({ selectedYear }) => {
   };
   return (
     <div className="flex flex-col justify-between h-full bg-bg-card dark:bg-dark-mode rounded-2xl pt-4 pl-4">
-      <h1 className="font-normal text-sm text-label-custom dark:text-white">Total Pendapatan</h1>
+      <h1 className="font-normal text-sm text-label-custom dark:text-white">        {t("home.overview.pendapatan")}
+      </h1>
       <h1 className="font-semibold text-lg text-label-custom dark:text-white">Rp. {total.toLocaleString()}</h1>
       <div className="flex justify-end items-end w-3/5 ml-auto rounded-3xl">
         <Line data={lineData()} options={options} />
