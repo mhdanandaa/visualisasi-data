@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { parse, isWithinInterval } from "date-fns";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DurasiHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -93,6 +95,9 @@ const DurasiHari = ({ dateRange }) => {
     plugins: {
       legend: {
         position: "right",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
       },
       tooltip: {
         callbacks: {
@@ -101,7 +106,9 @@ const DurasiHari = ({ dateRange }) => {
             if (totalMinutes >= 60) {
               const hours = Math.floor(totalMinutes / 60);
               const minutes = totalMinutes % 60;
-              return `${context.dataset.label}: ${hours} jam${minutes > 0 ? ` ${minutes} menit` : ""}`;
+              return `${context.dataset.label}: ${hours} jam${
+                minutes > 0 ? ` ${minutes} menit` : ""
+              }`;
             } else {
               return `${context.dataset.label}: ${totalMinutes} menit`;
             }
@@ -111,12 +118,12 @@ const DurasiHari = ({ dateRange }) => {
     },
   };
   return (
-    <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Total Durasi Kunjungan Berdasarkan Hari</h1>
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">
+        Total Durasi Kunjungan Berdasarkan Hari
+      </h1>
       {datas.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">
-          Takde
-        </p>
+        <p className="text-center text-sm text-gray-500">Takde</p>
       ) : (
         <div className="w-full h-[300px] pt-4">
           <Pie data={pieData()} options={options} />

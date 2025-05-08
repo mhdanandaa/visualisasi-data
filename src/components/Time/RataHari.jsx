@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,8 @@ ChartJS.register(
 
 const RataHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
+
+  const isDark = useDarkMode()
 
   const fetchDatas = async () => {
     try {
@@ -85,6 +88,9 @@ const RataHari = ({ dateRange }) => {
     plugins: {
       legend: {
         position: "top",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
       },
       tooltip: {
         callbacks: {
@@ -101,11 +107,29 @@ const RataHari = ({ dateRange }) => {
         },
       },
     },
+    scales: {
+      x: {
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+      },
+      y: {
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+      },
+    }
   };
   
   return (
-    <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">Rata-Rata Durasi Kunjungan Berdasarkan Hari</h1>
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">Rata-Rata Durasi Kunjungan Berdasarkan Hari</h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">alamak takde bg</p>
       ) : (

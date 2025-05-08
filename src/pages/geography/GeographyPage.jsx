@@ -11,7 +11,7 @@ const GeographyPage = () => {
         <SidebarFrame />
         <main className="w-full">
           <div className="w-full mb-4 mt-4">
-            <h1 className="font-semibold text-2xl">Sebaran Pengunjung</h1>
+            <h1 className="font-semibold text-2xl text-label-custom dark:text-white">Sebaran Pengunjung</h1>
           </div>
           <div className="mr-4 mb-4">
           <Maps />
