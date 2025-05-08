@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(
   RadialLinearScale,
@@ -25,6 +26,8 @@ const Kapasitas = ({ selectedYear }) => {
 
   const [datas, setDatas] = useState([]);
   const [isAvailable, setIsAvailable] = useState(true);
+
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -99,13 +102,29 @@ const Kapasitas = ({ selectedYear }) => {
     plugins: {
       legend: {
         position: "top",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+      },
+    },
+    scales: {
+      r: {
+        pointLabels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC", 
+        },
       },
     },
   };
 
   return (
-    <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm mb-2">
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm mb-2 dark:text-white text-label-custom">
         {t("home.kapasitas.title")}
       </h1>
       {isAvailable ? (

@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -17,6 +18,8 @@ const TotalPenjualan = ({ selectedYear }) => {
 
   const [datas, setDatas] = useState([]);
   const [isAvailable, setIsAvailable] = useState(true);
+
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -98,17 +101,40 @@ const TotalPenjualan = ({ selectedYear }) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: "top" },
+      legend: {
+        position: "top",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+      },
     },
     scales: {
-      x: { stacked: true },
-      y: { stacked: true },
+      x: {
+        stacked: true,
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+      },
+      y: {
+        stacked: true,
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+      },
     },
   };
 
   return (
-    <div className="bg-bg-card rounded-2xl p-4">
-      <h1 className="font-semibold text-sm">{t("home.totalPenjualan.title")}</h1>
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl p-4">
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">
+        {t("home.totalPenjualan.title")}
+      </h1>
       {isAvailable ? (
         <div className="w-full h-[300px] mx-auto">
           <Bar data={barData()} options={options} />

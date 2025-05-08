@@ -93,7 +93,7 @@ const PendapatanPie = ({ selectedYear }) => {
 
   return (
     <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm dark:text-white">
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">
         {t("home.totalPendapatan.title")}
       </h1>
       {isAvailable ? (

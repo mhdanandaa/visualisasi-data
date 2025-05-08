@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +25,8 @@ ChartJS.register(
 const TotalPengunjung = ({ selectedYear }) => {
   const [datas, setDatas] = useState([]);
   const [total, setTotal] = useState(0);
+
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -89,7 +92,7 @@ const TotalPengunjung = ({ selectedYear }) => {
           borderWidth: 2,
           tension: 0.2,
           fill: true,
-          backgroundColor: "#EEEEEE",
+          backgroundColor: isDark ? "#212C21" : "#EEEEEE",
         },
       ],
     };
@@ -113,6 +116,7 @@ const TotalPengunjung = ({ selectedYear }) => {
         },
         ticks: {
           display: true,
+          color: isDark ? "#FFF" : "#5F5F5F",
         },
       },
     },
@@ -123,9 +127,13 @@ const TotalPengunjung = ({ selectedYear }) => {
     },
   };
   return (
-    <div className="flex flex-col justify-between h-full bg-bg-card rounded-2xl pt-4 pl-4">
-      <h1 className="font-normal text-sm">Total Pengunjung</h1>
-      <h1 className="font-semibold text-lg">{total.toLocaleString()}</h1>
+    <div className="flex flex-col justify-between h-full bg-bg-card dark:bg-dark-mode rounded-2xl pt-4 pl-4">
+      <h1 className="font-normal text-sm text-label-custom dark:text-white">
+        Total Pengunjung
+      </h1>
+      <h1 className="font-semibold text-lg text-label-custom dark:text-white">
+        {total.toLocaleString()}
+      </h1>
       <div className="flex justify-end items-end w-3/5 ml-auto rounded-3xl">
         <Line data={lineData()} options={options} />
       </div>

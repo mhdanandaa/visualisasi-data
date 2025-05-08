@@ -14,7 +14,8 @@ export default {
         "green-muda": "#658864",
         "green-tua": "#3B513B",
         "gray-custom": "#5F5F5F",
-        "brown-custom": "#94551D"
+        "brown-custom": "#94551D",
+        "label-custom": "#5F5F5F"
       },
     },
     backgroundColor: (theme) => ({

@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJs.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
@@ -16,6 +17,8 @@ const WaktuKunjungan = ({ selectedYear }) => {
 
   const [datas, setDatas] = useState([]);
   const [isAvailable, setIsAvailable] = useState(true);
+
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -48,7 +51,7 @@ const WaktuKunjungan = ({ selectedYear }) => {
 
     datas.forEach((item) => {
       const timeVisit = item.kategori_kunjungan;
-      const totalSell = item.jumlah_terjual
+      const totalSell = item.jumlah_terjual;
 
       if (!timeCategory[timeVisit]) {
         timeCategory[timeVisit] = 0;
@@ -75,12 +78,28 @@ const WaktuKunjungan = ({ selectedYear }) => {
     plugins: {
       legend: {
         position: "right",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+      },
+    },
+    scales: {
+      r: {
+        pointLabels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
       },
     },
   };
   return (
-    <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm text-label-custom dark:text-white">
         {t("home.waktuKunjungan.title")}
       </h1>
       {isAvailable ? (
