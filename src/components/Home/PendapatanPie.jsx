@@ -2,38 +2,17 @@ import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// Hook custom untuk memantau dark mode secara realtime
-const useDarkMode = () => {
-  const [isDark, setIsDark] = useState(
-    document.documentElement.classList.contains("dark")
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const dark = document.documentElement.classList.contains("dark");
-      setIsDark(dark);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-};
-
 const PendapatanPie = ({ selectedYear }) => {
   const { t } = useTranslation();
-  const isDark = useDarkMode();
 
   const [datas, setDatas] = useState([]);
   const [isAvailable, setIsAvailable] = useState(true);
+
+  const isDark = useDarkMode();
 
   const fetchDatas = async () => {
     try {
@@ -106,7 +85,7 @@ const PendapatanPie = ({ selectedYear }) => {
       legend: {
         position: "right",
         labels: {
-          color: isDark ? "#fff" : "#333", // Custom warna label tergantung dark mode
+          color: isDark ? "#fff" : "#333",
         },
       },
     },
