@@ -21,7 +21,7 @@ const IncomePage = () => {
         <SidebarFrame />
         <main className="w-full">
           <div className="w-full mb-4 mt-4">
-            <h1 className="font-semibold text-2xl">Pendapatan</h1>
+            <h1 className="font-semibold text-2xl text-label-custom dark:text-white">Pendapatan</h1>
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <PieTiket dateRange={dateRange} />

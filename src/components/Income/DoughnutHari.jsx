@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import { parse, isWithinInterval } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -10,6 +11,7 @@ const DoughnutHari = ({ dateRange }) => {
   const { t } = useTranslation();
   const [datas, setDatas] = useState([]);
 
+  const isDark = useDarkMode()
   const fetchDatas = async () => {
     try {
       const response = await fetch("/API/Income/pendapatan-hari.json");
@@ -74,13 +76,16 @@ const DoughnutHari = ({ dateRange }) => {
     plugins: {
       legend: {
         position: "right",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
       },
     },
   };
 
   return (
-    <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm dark:text-white text-label-custom">
         {t("income.doughnut.title")}
       </h1>
       {datas.length === 0 ? (

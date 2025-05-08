@@ -4,7 +4,7 @@ import "react-date-range/dist/theme/default.css";
 
 const DatePicker = ({ dateRange, onChange }) => {
   return (
-    <div className="flex justify-center bg-bg-card rounded-xl">
+    <div className="flex justify-center bg-bg-card dark:bg-dark-mode rounded-xl">
       <DateRangePicker
         ranges={[dateRange]}
         onChange={(ranges) =>

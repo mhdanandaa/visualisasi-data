@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { isWithinInterval, parse } from "date-fns";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(
   CategoryScale,
@@ -23,6 +24,8 @@ ChartJS.register(
 const BarWaktu = ({ dateRange }) => {
   const { t } = useTranslation();
   const [datas, setDatas] = useState([]);
+
+  const isDark = useDarkMode()
 
   const fetchDatas = async () => {
     try {
@@ -81,13 +84,34 @@ const BarWaktu = ({ dateRange }) => {
     plugins: {
       legend: {
         position: "top",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
       },
     },
+    scales: {
+      x: {
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+      },
+      y: {
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+      },
+    }
   };
 
   return (
-    <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
-      <h1 className="font-semibold text-sm">{t("income.time.title")}</h1>
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+      <h1 className="font-semibold text-sm dark:text-white text-label-custom">{t("income.time.title")}</h1>
       {datas.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
           {t("income.notFound")}

@@ -10,12 +10,15 @@ import {
 } from "chart.js";
 import { isWithinInterval, parse } from "date-fns";
 import { useTranslation } from "react-i18next";
+import useDarkMode from "../../hooks/useDarkMode";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const TotalPenjualan = ({ dateRange }) => {
   const { t } = useTranslation();
   const [datas, setDatas] = useState([]);
+
+  const isDark = useDarkMode();
 
   useEffect(() => {
     const fetchDatas = async () => {
@@ -27,11 +30,7 @@ const TotalPenjualan = ({ dateRange }) => {
         const data = await response.json();
 
         const filtered = data.filter((item) => {
-          const itemDate = parse(
-            item.tanggal,
-            "dd-MM-yyyy",
-            new Date()
-          );
+          const itemDate = parse(item.tanggal, "dd-MM-yyyy", new Date());
           return isWithinInterval(itemDate, {
             start: dateRange.startDate,
             end: dateRange.endDate,
@@ -90,17 +89,38 @@ const TotalPenjualan = ({ dateRange }) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: "top" },
+      legend: {
+        position: "top",
+        labels: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+      },
     },
     scales: {
-      x: { stacked: true },
-      y: { stacked: true },
+      x: { 
+        stacked: true,
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+       },
+      y: { 
+        stacked: true,
+        ticks: {
+          color: isDark ? "#FFF" : "#5F5F5F",
+        },
+        grid: {
+          color: isDark ? "#444" : "#CCC",
+        },
+       },
     },
   };
 
   return (
-    <div className="bg-bg-card rounded-2xl p-4">
-      <h1 className="font-semibold text-sm">
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl p-4">
+      <h1 className="font-semibold text-sm dark:text-white text-label-custom">
         {t("income.payment.title")}
       </h1>
       {datas.length === 0 ? (
