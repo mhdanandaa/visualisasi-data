@@ -24,7 +24,7 @@ ChartJS.register(
 const KunjunganHari = ({ dateRange }) => {
   const [datas, setDatas] = useState([]);
 
-  const isDark = useDarkMode
+  const isDark = useDarkMode()
 
   const fetchDatas = async () => {
     try {
