@@ -44,15 +44,15 @@ const InputData = () => {
         <SidebarFrame />
         <main className="w-full">
           <div className="w-full mb-4 mt-4">
-            <h1 className="font-semibold text-2xl">Input Data Kunjungan</h1>
+            <h1 className="font-semibold text-2xl text-label-custom dark:text-white">Input Data Kunjungan</h1>
           </div>
-          <div className="flex flex-col bg-bg-card items-center justify-center h-screen gap-4 mr-4 mb-4 rounded-3xl">
-            <h1 className="text-2xl font-bold">Silahkan Pilih File Excel!</h1>
+          <div className="flex flex-col bg-bg-card dark:bg-dark-mode items-center justify-center h-screen gap-4 mr-4 mb-4 rounded-3xl">
+            <h1 className="text-2xl font-bold text-label-custom dark:text-white">Silahkan Pilih File Excel!</h1>
             <input
               type="file"
               accept=".xlsx, .xls"
               onChange={handleFileChange}
-              className="border p-2 border-gray-300"
+              className="border p-2 border-gray-300 text-label-custom dark:text-white"
             />
             <button
               onClick={handleUpload}
