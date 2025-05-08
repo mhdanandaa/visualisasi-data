@@ -71,6 +71,7 @@ const DurasiHari = ({ dateRange }) => {
       datasets: [
         {
           data: Object.values(totalDurasi),
+          label: "Total Durasi Kunjungan",
           backgroundColor: [
             "#BC6C25",
             "#658864",
@@ -92,6 +93,20 @@ const DurasiHari = ({ dateRange }) => {
     plugins: {
       legend: {
         position: "right",
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const totalMinutes = context.raw;
+            if (totalMinutes >= 60) {
+              const hours = Math.floor(totalMinutes / 60);
+              const minutes = totalMinutes % 60;
+              return `${context.dataset.label}: ${hours} jam${minutes > 0 ? ` ${minutes} menit` : ""}`;
+            } else {
+              return `${context.dataset.label}: ${totalMinutes} menit`;
+            }
+          },
+        },
       },
     },
   };

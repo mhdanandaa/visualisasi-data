@@ -64,7 +64,7 @@ const WaktuKunjunganTiket = ({dateRange}) => {
 
       if (!ticketTotals[jenis]) {
         ticketTotals[jenis] = {};
-      } else if (!ticketTotals[jenis][kategoriWaktu]) {
+      }if (!ticketTotals[jenis][kategoriWaktu]) {
         ticketTotals[jenis][kategoriWaktu] = 0;
       }
       ticketTotals[jenis][kategoriWaktu] += totalPengunjung;

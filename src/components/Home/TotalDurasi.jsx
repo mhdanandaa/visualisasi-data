@@ -23,7 +23,7 @@ ChartJS.register(
 
 const TotalDurasi = ({ selectedYear }) => {
   const [datas, setDatas] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [setTotal] = useState(0);
   const [formattedTotal, setFormattedTotal] = useState({
     hours: 0,
     minutes: 0,

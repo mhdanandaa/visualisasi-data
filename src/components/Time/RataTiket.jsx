@@ -81,8 +81,23 @@ const RataTiket = ({ dateRange }) => {
       legend: {
         position: "top",
       },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const totalMinutes = context.raw;
+            if (totalMinutes >= 60) {
+              const hours = Math.floor(totalMinutes / 60);
+              const minutes = totalMinutes % 60;
+              return `${context.dataset.label}: ${hours} jam${minutes > 0 ? ` ${minutes} menit` : ""}`;
+            } else {
+              return `${context.dataset.label}: ${totalMinutes} menit`;
+            }
+          },
+        },
+      },
     },
   };
+  
   return (
     <div className="bg-bg-card rounded-2xl px-4 py-4 h-full">
       <h1 className="font-semibold text-sm">Rata-Rata Durasi Kunjungan Berdasarkan Jenis Tiket</h1>
