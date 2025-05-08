@@ -61,6 +61,7 @@ const WaktuKunjungan = ({ selectedYear }) => {
       datasets: [
         {
           data: Object.values(timeCategory),
+          label: "Total Pengunjung",
           backgroundColor: ["#BC6C25", "#658864", "#ECD79B"],
           borderWidth: 0,
         },

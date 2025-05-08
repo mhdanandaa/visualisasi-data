@@ -84,6 +84,7 @@ const PendapatanPie = ({ selectedYear }) => {
       datasets: [
         {
           data: Object.values(ticketTotals),
+          label: "Total Pendapatan",
           backgroundColor: [
             "#BC6C25",
             "#658864",
