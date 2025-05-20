@@ -1,3 +1,5 @@
+const dayjs = require('dayjs');
+
 // controllers/visitingController.js
 const visitingModel = require("../models/visitingModel");
 
@@ -57,16 +59,6 @@ exports.deleteVisiting = async (req, res) => {
     }
 };
 
-// Get total sold by ticket type
-exports.getJumlahTerjual = async (req, res) => {
-    try {
-        const data = await visitingModel.getJumlahTerjual();
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 exports.getJumlahTerjualPerTahun = async (req, res) => {
     try {
         const year = req.query.year; // Get 'year' from query params
@@ -90,50 +82,56 @@ exports.getJumlahTerjualPerTahunPerBulan = async (req, res) => {
 exports.getTotalDibayarPerJenis = async (req, res) => {
     try {
         const data = await visitingModel.getTotalDibayarPerJenis();
-        res.json(data);
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            jenis_tiket: capitalizeWords(item.jenis_tiket.toLowerCase()),
+            jenis_pembayaran: capitalizeWords(item.pembayaran.toLowerCase()),
+            total_pendapatan: formatCurrency(item.total_dibayar)
+        }));
+
+        res.json(formatted);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
-exports.getTotalDibayarPerJenisPerTahun = async (req, res) => {
-    try {
-        const year = req.query.year; // Get year filter from query params
-        const data = await visitingModel.getTotalDibayarPerJenisPerTahun(year);
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
 
-exports.getTotalDibayarPerTahunPerBulan = async (req, res) => {
-    try {
-        const year = req.query.year; // Get year filter from query params
-        const data = await visitingModel.getTotalDibayarPerTahunPerBulan(year);
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+function formatCurrency(numberStr) {
+    const number = parseFloat(numberStr);
+    return new Intl.NumberFormat('id-ID').format(number);
+}
 
 exports.getTotalDibayarPerMetode = async (req, res) => {
     try {
-        const data = await visitingModel.getTotalDibayarPerMetode();
-        res.json(data);
+        const { start, end } = req.query;
+        const data = await visitingModel.getTotalDibayarPerMetode(start, end);
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            jenis_pembayaran: capitalizeWords(item.pembayaran.toLowerCase()),
+            total_pendapatan: formatCurrency(item.total_dibayar)
+        }));
+
+        res.json(formatted);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
-exports.getTotalDibayarPerMetodePerTahun = async (req, res) => {
-    try {
-        const { year } = req.query; // Get year from query params
-        const data = await visitingModel.getTotalDibayarPerMetodePerTahun(year);
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+// Helper untuk kapitalisasi kata
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+// Helper untuk format angka ke "1.000.000" format
+function formatCurrency(numberStr) {
+    const number = parseFloat(numberStr);
+    return new Intl.NumberFormat('id-ID').format(number);
+}
 
 const convertMonthToIndonesian = (monthNumber) => {
     const months = {
@@ -145,25 +143,6 @@ const convertMonthToIndonesian = (monthNumber) => {
     return months[monthNumber] || monthNumber;
 };
   
-exports.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan = async (req, res) => {
-    try {
-        const { year } = req.query; // Get year from query params
-        const data = await visitingModel.getTotalJumlahTerjualPerTahunPerJenisTiketPerBulan(year);
-        
-        const mappedData = data.map(item => {
-            return {
-                jenis_tiket: item.jenis_tiket,
-                tahun: item.tahun,
-                bulan: convertMonthToIndonesian(item.bulan), // Convert month to Indonesian name
-                jumlah_terjual: item.jumlah_terjual
-            };
-        });
-
-        res.json(mappedData);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
   
 exports.getJumlahTerjualByCheckin  = async (req, res) => {
     try {
@@ -177,11 +156,318 @@ exports.getJumlahTerjualByCheckin  = async (req, res) => {
 
 exports.getTotalVisitingHoursPerTicket  = async (req, res) => {
     try {
-        const year = req.query.year; // Get 'year' from query params
-        const data = await visitingModel.getTotalVisitingHoursPerTicket (year);
+        const year = req.query.year;
+        console.log("Year received from query:", year); // <-- DEBUG LOG
+        const data = await visitingModel.getTotalVisitingHoursPerTicket(year);
+        console.log("Data from model:", data);          // <-- DEBUG LOG
+        res.json(data);
+    } catch (error) {
+        console.error("Error in controller:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+  
+exports.getPendapatanHari = async (req, res) => {
+    try {
+        const { start, end } = req.query;
+        const data = await visitingModel.getPendapatanHari(start, end);
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            kategori_hari: item.kategori_hari,
+            total_pendapatan: formatCurrency(item.total_dibayar)
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Format mata uang ke format "1.000.000"
+function formatCurrency(numberStr) {
+    const number = parseFloat(numberStr);
+    return new Intl.NumberFormat('id-ID').format(number);
+}
+
+const dayMap = {
+    Sunday: 'Minggu',
+    Monday: 'Senin',
+    Tuesday: 'Selasa',
+    Wednesday: 'Rabu',
+    Thursday: 'Kamis',
+    Friday: 'Jumat',
+    Saturday: 'Sabtu'
+};
+
+exports.getPendapatanJenisHari = async (req, res) => {
+    try {
+        const data = await visitingModel.getPendapatanJenisHari();
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            hari: dayMap[item.hari] || item.hari,
+            total_pendapatan: formatCurrency(item.total_dibayar)
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+function formatCurrency(numberStr) {
+    const number = parseFloat(numberStr);
+    return new Intl.NumberFormat('id-ID').format(number);
+}
+
+exports.getPendapatanTiket = async (req, res) => {
+    try {
+        const data = await visitingModel.getPendapatanTiket();
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            jenis_tiket: capitalizeWords(item.jenis_tiket.toLowerCase()),
+            total_pendapatan: formatCurrency(item.total_dibayar)
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function formatCurrency(numberStr) {
+    const number = parseFloat(numberStr);
+    return new Intl.NumberFormat('id-ID').format(number);
+}
+
+exports.getPendapatanTiketPerTahun = async (req, res) => {
+    try {
+        const data = await visitingModel.getPendapatanTiketPerTahun();
+
+        const formatted = data.map(item => ({
+            tahun: item.tahun,
+            jenis_tiket: capitalizeWords(item.jenis_tiket.toLowerCase()),
+            total_pendapatan: formatCurrency(item.total_dibayar)
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function formatCurrency(numberStr) {
+    const number = parseFloat(numberStr);
+    return new Intl.NumberFormat('id-ID').format(number);
+}
+
+exports.getPengunjungHariTahun = async (req, res) => {
+    try {
+        const data = await visitingModel.getPengunjungHariTahun();
+
+        // Buat struktur data seperti dummy
+        const result = {};
+
+        data.forEach(item => {
+            const tahun = item.tahun;
+            if (!result[tahun]) {
+                result[tahun] = {
+                    tahun: tahun,
+                    total_pengunjung_libur_nasional: 0,
+                    total_pengunjung_weekend: 0,
+                    total_pengunjung_hari_kerja: 0 
+                };
+            }
+
+            if (item.kategori_hari === 'libur_nasional') {
+                result[tahun].total_pengunjung_libur_nasional += parseInt(item.total_pengunjung, 10); // Ubah menjadi integer
+            } else if (item.kategori_hari === 'weekend') {
+                result[tahun].total_pengunjung_weekend += parseInt(item.total_pengunjung, 10); // Ubah menjadi integer
+            } else if (item.kategori_hari === 'hari_kerja') {
+                result[tahun].total_pengunjung_hari_kerja += parseInt(item.total_pengunjung, 10); // Ubah menjadi integer
+            }
+        });
+
+        // Ubah jadi array
+        res.json(Object.values(result));
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getPendapatanTiketPerTahunBulan = async (req, res) => {
+    try {
+        const data = await visitingModel.getPendapatanTiketPerTahunBulan();
+
+        const monthNames = {
+            1: "Januari", 2: "Februari", 3: "Maret", 4: "April", 5: "Mei", 6: "Juni",
+            7: "Juli", 8: "Agustus", 9: "September", 10: "Oktober", 11: "November", 12: "Desember"
+        };
+
+        const formatted = data.map(item => ({
+            tahun: item.tahun,
+            bulan: monthNames[item.bulan],  // Mengubah bulan angka menjadi nama bulan
+            total_pendapatan: formatCurrency(item.total_dibayar)  // Format angka sebagai mata uang
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getTotalPengunjunglPerTahun = async (req, res) => {
+    try {
+        const year = req.query.year;
+        const data = await visitingModel.getTotalPengunjunglPerTahun(year);
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
-  
+
+exports.getDurasiHari = async (req, res) => {
+    try {
+        const data = await visitingModel.getDurasiHari();
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            hari: dayjs(item.tanggal).format('dddd'), // Format hari dalam Bahasa Indonesia
+            total_durasi: item.total_durasi
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getDurasiKunjungan = async (req, res) => {
+    try {
+        const data = await visitingModel.getDurasiKunjungan();
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            jenis_tiket: capitalizeWords(item.jenis_tiket.toLowerCase()),
+            total_durasi: item.total_durasi
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Optional: Capitalize helper
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+exports.getKunjunganWaktu = async (req, res) => {
+    try {
+        const data = await visitingModel.getKunjunganWaktu();
+
+        const formatted = data.map(item => ({
+            tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+            jenis_tiket: capitalizeWords(item.jenis_tiket.toLowerCase()),
+            waktu_kunjungan: item.kategori_kunjungan,
+            total_pengunjung: item.total_pengunjung
+        }));
+
+        res.json(formatted);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getWaktuKunjunagn = async (req, res) => {
+  try {
+    const data = await visitingModel.getWaktuKunjunagn();
+
+    const formatted = data.map(item => ({
+      tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+      waktu_kunjungan: item.waktu_kunjungan,
+      jumlah_pendapatan: formatCurrency(item.jumlah_pendapatan)
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getRataRataDurasi = async (req, res) => {
+  try {
+    const data = await visitingModel.getRataRataDurasi();
+
+    const formatted = data.map(item => ({
+      tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+      jenis_tiket: capitalizeWords(item.jenis_tiket.toLowerCase()),
+      rata_rata: item.rata_rata
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getRataRataHari = async (req, res) => {
+  try {
+    const data = await visitingModel.getRataRataHari();
+
+    const formatted = data.map(item => ({
+      tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+      hari: dayMap[item.hari] || item.hari,
+      rata_rata_durasi: item.rata_rata_durasi
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getTotalKunjungan = async (req, res) => {
+  try {
+    const data = await visitingModel.getTotalKunjungan();
+
+    const formatted = data.map(item => ({
+      tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+      waktu_kunjungan: item.waktu_kunjungan,
+      total_kunjungan: item.total_kunjungan
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getJamMasuk = async (req, res) => {
+  try {
+    const data = await visitingModel.getJamMasukGrouped();
+
+    const formatted = data.map(item => ({
+      tanggal: dayjs(item.tanggal).format('DD-MM-YYYY'),
+      jam_grup: item.jam_grup,
+      jenis_tiket: item.jenis_tiket,
+      jumlah_pengunjung: item.jumlah_pengunjung
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
