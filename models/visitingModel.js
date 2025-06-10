@@ -146,7 +146,7 @@ exports.getTotalDibayarPerJenis = () => {
         db.query(query, (err, results) => {
             if (err) reject(err);
             resolve(results);
-        });
+        });getTotalDibayarPerJenis
     });
 };
 
@@ -211,7 +211,7 @@ exports.getJumlahTerjualByCheckin = (year) => {
 
 
 
-  exports.getTotalVisitingHoursPerTicket = () => {
+exports.getTotalVisitingHoursPerTicket = () => {
     return new Promise((resolve, reject) => {
       const query = `
         SELECT 
@@ -240,7 +240,7 @@ exports.getJumlahTerjualByCheckin = (year) => {
 };
 
   
-  exports.getPendapatanHari = (start, end) => {
+exports.getPendapatanHari = (start, end) => {
     return new Promise((resolve, reject) => {
         let query = `
             SELECT 

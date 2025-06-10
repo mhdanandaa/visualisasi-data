@@ -37,19 +37,31 @@ const db = mysql.createConnection(
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
-  const sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-  db.query(sql, [username, password], (err, results) => {
-    if (err)
-      return res.status(500).json({ success: false, message: "DB Error" });
+  const sql = "SELECT * FROM users WHERE username = ?";
+  db.query(sql, [username], (err, results) => {
+    if (err) return res.status(500).json({ success: false, message: "DB Error" });
 
-    if (results.length > 0) {
-      req.session.user = results[0];
-      res.json({ success: true });
-    } else {
-      res.json({ success: false, message: "Username/password salah" });
+    if (results.length === 0) {
+      return res.json({ success: false, message: "Username/password salah" });
     }
+
+    const user = results[0];
+
+    // Bandingkan hash password
+    const bcrypt = require("bcrypt");
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) return res.status(500).json({ success: false, message: "Error saat membandingkan password" });
+
+      if (isMatch) {
+        req.session.user = user;
+        res.json({ success: true });
+      } else {
+        res.json({ success: false, message: "Username/password salah" });
+      }
+    });
   });
 });
+
 
 // Cek login
 app.get("/api/check-auth", (req, res) => {
@@ -173,4 +185,18 @@ function formatToInteger(value) {
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+});
+
+const bcrypt = require("bcrypt");
+const username = "adminKasepuhan";
+const password = "kasepuhan12345";
+
+bcrypt.hash(password, 10, (err, hash) => {
+  if (err) throw err;
+
+  const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+  db.query(sql, [username, hash], (err, result) => {
+    if (err) throw err;
+    console.log("Admin berhasil ditambahkan");
+  });
 });
