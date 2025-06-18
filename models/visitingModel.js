@@ -144,9 +144,12 @@ exports.getTotalDibayarPerJenis = () => {
             ORDER BY tanggal ASC, jenis_tiket ASC;
         `;
         db.query(query, (err, results) => {
-            if (err) reject(err);
-            resolve(results);
-        });getTotalDibayarPerJenis
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
     });
 };
 
