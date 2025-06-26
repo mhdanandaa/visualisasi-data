@@ -33,7 +33,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "visualisasi_data",
+  database: "keraton_db",
 });
 
 // Route login
