@@ -1,10 +1,5 @@
-import React from "react";
-import useDarkMode from "../../hooks/useDarkMode";
-
-
 const DropdownTahun = ({ years, selectedYear, onChange }) => {
 
-  const isDark = useDarkMode
   return (
     <select
       value={selectedYear}

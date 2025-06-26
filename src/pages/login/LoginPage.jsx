@@ -112,7 +112,7 @@ const LoginPage = () => {
           <img
             src={keraton}
             alt=""
-            className="w-full max-w-[600px] h-auto object-cover rounded-xl mx-auto mt-10"
+            className="w-[85%] h-auto object-cover rounded-xl mx-auto mt-10"
           />
         </div>
       </div>

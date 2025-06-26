@@ -9,6 +9,7 @@ import DurasiTiket from "../../components/Time/DurasiTiket";
 import RataTiket from "../../components/Time/RataTiket";
 import JamMasukTiket from "../../components/Time/JamMasukTiket";
 import WaktuKunjunganTiket from "../../components/Time/WaktuKunjunganTiket";
+import { useTranslation } from "react-i18next";
 
 const TimePage = () => {
   const [dateRange, setDateRange] = useState({
@@ -17,26 +18,31 @@ const TimePage = () => {
     key: "selection",
   });
 
+  const {t} = useTranslation()
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
       <div className="flex mt-16">
         <SidebarFrame />
         <main className="w-full">
-          <div className="w-full mb-4 mt-4">
-            <h1 className="font-semibold text-2xl text-label-custom dark:text-white">Waktu</h1>
-          </div>
-          <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
-            <div className="col-span-2">
-              <KunjunganHari dateRange={dateRange} />
-            </div>
+          <div className="w-full mb-4 mt-4 px-4 flex justify-between items-center">
+            <h1 className="font-semibold text-2xl text-label-custom dark:text-white">
+              {t("time.title")}
+            </h1>
             <DatePicker dateRange={dateRange} onChange={setDateRange} />
+          </div>
+          <div className="grid grid-cols-2 gap-4 mr-4 mt-4">
+            <JamMasukTiket dateRange={dateRange} />
+            <div className="col-span-1">
+              <WaktuKunjunganTiket dateRange={dateRange} />
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <DurasiHari dateRange={dateRange} />
             <div className="col-span-2">
-            <RataHari dateRange={dateRange} />
-          </div>
+              <RataHari dateRange={dateRange} />
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4">
             <div className="col-span-2">
@@ -44,9 +50,8 @@ const TimePage = () => {
             </div>
             <DurasiTiket dateRange={dateRange} />
           </div>
-          <div className="grid grid-cols-2 gap-4 my-4 mr-4">
-            <JamMasukTiket dateRange={dateRange} />
-            <WaktuKunjunganTiket dateRange={dateRange} />
+          <div className="grid grid-cols-1 gap-4 my-4 mr-4">
+            <KunjunganHari dateRange={dateRange} />
           </div>
         </main>
       </div>

@@ -13,7 +13,7 @@ const Maps = () => {
   const [geoData, setGeoData] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const fetchData = async () => {
     try {
@@ -32,7 +32,7 @@ const Maps = () => {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v12",
+      style: "mapbox://styles/mapbox/navigation-day-v1",
       center: [110, 0],
       zoom: 3,
     });
@@ -62,7 +62,7 @@ const Maps = () => {
               "interpolate",
               ["linear"],
               ["get", "visitors"],
-              0,
+              1,
               "#A3EB68",
               500,
               "#FDE96C",
@@ -107,7 +107,6 @@ const Maps = () => {
     <div className="relative w-full h-screen">
       <div ref={mapContainer} className="w-full h-full" />
 
-      {/* ✅ Legend */}
       <div className="absolute bottom-4 left-4 bg-white p-3 rounded shadow-md text-sm border border-gray-300">
         <h4 className="font-bold mb-2">{t("geo.jumlah_pengunjung")}</h4>
         <div className="flex items-center mb-1">

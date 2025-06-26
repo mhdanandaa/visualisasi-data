@@ -72,6 +72,8 @@ const PendapatanPie = ({ selectedYear }) => {
             "#B7B78A",
             "#ECAB9B",
             "#C09E7F",
+            "#8F5E3C",
+            "#F5EEDC",
           ],
           borderWidth: 0,
         },

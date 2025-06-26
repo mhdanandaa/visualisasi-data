@@ -123,7 +123,7 @@ const Kapasitas = ({ selectedYear }) => {
   };
 
   return (
-    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full">
+    <div className="bg-bg-card dark:bg-dark-mode rounded-2xl px-4 py-4 h-full flex flex-col items-center">
       <h1 className="font-semibold text-sm mb-2 dark:text-white text-label-custom">
         {t("home.kapasitas.title")}
       </h1>

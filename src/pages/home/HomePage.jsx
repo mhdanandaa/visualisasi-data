@@ -38,7 +38,7 @@ const HomePage = () => {
         });
       }
 
-      const sortedYears = Array.from(yearSet).sort();
+      const sortedYears = Array.from(yearSet).sort((a, b) => b - a);
       setAvailableYears(sortedYears);
 
       if (sortedYears.length > 0) setSelectedYear(sortedYears[0]);
@@ -73,17 +73,17 @@ const HomePage = () => {
             <TotalPendapatan selectedYear={selectedYear} />
           </div>
           <div className="grid grid-cols-4 gap-4 mr-4 mt-4">
-            <PendapatanPie selectedYear={selectedYear} />
-            <Kapasitas selectedYear={selectedYear} />
             <div className="col-span-2">
               <Hari selectedYear={selectedYear} />
             </div>
+            <WaktuKunjungan selectedYear={selectedYear} />
+            <PendapatanPie selectedYear={selectedYear} />
           </div>
           <div className="grid grid-cols-3 gap-4 mr-4 mt-4 mb-4">
             <div className="col-span-2">
               <TotalPenjualan selectedYear={selectedYear} />
             </div>
-            <WaktuKunjungan selectedYear={selectedYear} />
+            <Kapasitas selectedYear={selectedYear} />
           </div>
         </main>
       </div>

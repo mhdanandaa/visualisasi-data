@@ -7,6 +7,7 @@ import HomePage from "../pages/Home/HomePage";
 import LoginPage from "../pages/login/LoginPage";
 import PrivateRouting from "./PrivateRouting";
 import InputData from "../pages/InputData";
+import NotFound from "../pages/NotFound";
 
 const AllRouting = () => {
   return (
@@ -52,6 +53,8 @@ const AllRouting = () => {
           </PrivateRouting>
         }
       />
+            <Route path="*" element={<NotFound />} />
+
     </Routes>
   );
 };

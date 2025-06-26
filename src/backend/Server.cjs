@@ -24,11 +24,10 @@ app.use(
     secret: "secretKey",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // true kalau HTTPS
+    cookie: { secure: false },
   })
 );
 
-// Koneksi DB
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -36,7 +35,6 @@ const db = mysql.createConnection({
   database: "keraton_db",
 });
 
-// Route login
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -54,7 +52,6 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-// Cek login
 app.get("/api/check-auth", (req, res) => {
   if (req.session.user) {
     res.json({ loggedIn: true });
@@ -63,17 +60,14 @@ app.get("/api/check-auth", (req, res) => {
   }
 });
 
-// Logout
 app.post("/api/logout", (req, res) => {
   req.session.destroy();
   res.json({ success: true });
 });
 
-// Setup Multer untuk menerima file Excel
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Endpoint upload dan import Excel
 app.post("/api/upload-excel", upload.single("excel"), (req, res) => {
   if (!req.file) {
     return res
@@ -82,13 +76,11 @@ app.post("/api/upload-excel", upload.single("excel"), (req, res) => {
   }
 
   try {
-    // Parse Excel buffer
     const workbook = xlsx.read(req.file.buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const data = xlsx.utils.sheet_to_json(sheet); // hasil berupa array of objects
 
-    // Contoh struktur data: [{ nama: "Andi", usia: 21 }, { ... }]
     const sql =
       "INSERT INTO pendapatan (nama_tiket, ketersediaan_item, jenis_tiket, pembayaran, jumlah, harga, total, total_dibayar, dihapus, tanggal, pelanggan) VALUES ?";
     console.log(data);
@@ -158,17 +150,14 @@ app.get("/api/pendapatan-per-jenis", (req, res) => {
 });
 
 function convertToMySQLDateTime(dateString) {
-  // Pecah tanggal dan waktu
   const [datePart, timePart] = dateString.split(" ");
   const [day, month, year] = datePart.split("-");
 
-  // Susun ke format MySQL
   return `${year}-${month}-${day} ${timePart}`;
 }
 
 function formatToInteger(value) {
   if (typeof value === "string") {
-    // Hilangkan titik pemisah ribuan
     return parseInt(value.replace(/\./g, ""), 10);
   }
   return value;
